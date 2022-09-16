@@ -17,10 +17,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index a48a12b7952e41c98b253fcfbe2f12174251e924..213dc23771b85da8db6825c4ba5463abe42f690c 100644
+index f582265ec9dc5349183cbd5c6b1e3f2658166c02..d94e28c53df16ca969ac128886cdb60cfd712145 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -1635,7 +1635,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -1642,7 +1642,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
          return this.isInWater() || flag;
      }
  

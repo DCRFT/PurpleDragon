@@ -6,7 +6,7 @@ Subject: [PATCH] Spread out and optimise player list ticksSpread out and
 
 
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index fe5191550b0472a33122f3378142cdef83c89ce5..4701f86c3ef5ccf0bc5e9a748f80d3aa703ccc3e 100644
+index b90138f95ad0cdeda2ed6e9a881f01c7b22dd3f2..ed4e4de5f4e303a8fe1c64040c65ab24c2f7e4d6 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -1018,22 +1018,22 @@ public abstract class PlayerList {
@@ -46,10 +46,10 @@ index fe5191550b0472a33122f3378142cdef83c89ce5..4701f86c3ef5ccf0bc5e9a748f80d3aa
  
      public void broadcastAll(Packet<?> packet) {
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index d017e5a7f509659cdd11c10d76030f34f0c87319..02a237153090b27ce6b2e734812348a02f90d088 100644
+index 2cd475ac88b3d28aa918ca7f8599a70a5b5c2ea4..365358ef910594980f0126a4300a40bb2293e03c 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -1643,7 +1643,13 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -1737,7 +1737,13 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
  
      @Override
      public boolean canSee(org.bukkit.entity.Entity entity) {

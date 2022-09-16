@@ -5,7 +5,7 @@ Subject: [PATCH] Add mobGriefing bypass to everything affected
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index e39d333c10d74be81da173622b5e033bfde9cf3a..dace52b3cae2ce20c10080612bf6d6b09e82bea1 100644
+index 8ed08c1ce9fe689c009b37ca317b60339a0d6d76..52ac5e4968256dca6fbda827fa251b9a6d60d5ee 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -1694,7 +1694,7 @@ public abstract class LivingEntity extends Entity {
@@ -18,10 +18,10 @@ index e39d333c10d74be81da173622b5e033bfde9cf3a..dace52b3cae2ce20c10080612bf6d6b0
                      BlockState iblockdata = Blocks.WITHER_ROSE.defaultBlockState();
  
 diff --git a/src/main/java/net/minecraft/world/entity/Mob.java b/src/main/java/net/minecraft/world/entity/Mob.java
-index 23e6a4f6a510cfcb80678446d7b371a23c5de6a3..baf011a492e9c4ccb42c769c74181da804046622 100644
+index 079bfd97262cec9084d3491b3dd68f1506274f43..6d11daac5f0d0d119fb6854089457d158ab6550e 100644
 --- a/src/main/java/net/minecraft/world/entity/Mob.java
 +++ b/src/main/java/net/minecraft/world/entity/Mob.java
-@@ -658,7 +658,7 @@ public abstract class Mob extends LivingEntity {
+@@ -657,7 +657,7 @@ public abstract class Mob extends LivingEntity {
      public void aiStep() {
          super.aiStep();
          this.level.getProfiler().push("looting");
@@ -118,7 +118,7 @@ index 8d44949c54f9cba0848b4f7b82c573325c134d9d..3e1f6392853f7770a3a3427444ecc9c5
                  }
  
 diff --git a/src/main/java/net/minecraft/world/entity/animal/SnowGolem.java b/src/main/java/net/minecraft/world/entity/animal/SnowGolem.java
-index 844de0207892b01259feb75d1b98397509e6d399..d87b5f8478bca172c233b84f4f4ac0b3b9a87692 100644
+index bb71b370856d4ec050e04be3ad6527cca5e6e521..cdd171238cf01ca08eccc99d07f99f8c4b97d5c0 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/SnowGolem.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/SnowGolem.java
 @@ -133,7 +133,7 @@ public class SnowGolem extends AbstractGolem implements Shearable, RangedAttackM
@@ -131,10 +131,10 @@ index 844de0207892b01259feb75d1b98397509e6d399..d87b5f8478bca172c233b84f4f4ac0b3
              }
  
 diff --git a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-index 2c1381a2f0ba6d17f3d4a7c16e03fca263428cfb..b22f3839107e80d4c802475d7d56d52c267046c6 100644
+index 1a454c782391ff906c58cdb71c4345bb15943649..716293b68ac1e9c8bd94780cbc3bdd361f445198 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-@@ -562,7 +562,7 @@ public class EnderDragon extends Mob implements Enemy {
+@@ -579,7 +579,7 @@ public class EnderDragon extends Mob implements Enemy {
                      BlockState iblockdata = this.level.getBlockState(blockposition);
  
                      if (!iblockdata.isAir() && iblockdata.getMaterial() != Material.FIRE) {
@@ -249,7 +249,7 @@ index cfbbdea914eb55f5c772f68f6494ac90c1c4c0ea..d929193ed63b36deb32cc0807e75a589
                      BlockPos blockposition = (new BlockPos(this.mob.getX(), this.mob.getY() + 0.5D, this.mob.getZ())).relative(this.selectedDirection);
                      BlockState iblockdata = this.mob.level.getBlockState(blockposition);
 diff --git a/src/main/java/net/minecraft/world/entity/monster/piglin/Piglin.java b/src/main/java/net/minecraft/world/entity/monster/piglin/Piglin.java
-index 0d2cedbe96a013b027b6bfb391a204e2fb201311..f35e5c9e85583c8f599460c0ccd23a0f3bb88d6a 100644
+index ee1aadfa838aaed81760648bb6cf5b42e96d2a94..644ec458325049cb97a181dea6c6857c3d35ef1f 100644
 --- a/src/main/java/net/minecraft/world/entity/monster/piglin/Piglin.java
 +++ b/src/main/java/net/minecraft/world/entity/monster/piglin/Piglin.java
 @@ -412,7 +412,7 @@ public class Piglin extends AbstractPiglin implements CrossbowAttackMob, Invento
@@ -290,10 +290,10 @@ index e69213b43c8aa5a7c04add7a87482d531fbf52d2..f51ea103238b4a50439f5162a248cd9a
              // CraftBukkit start - fire ExplosionPrimeEvent
              ExplosionPrimeEvent event = new ExplosionPrimeEvent((org.bukkit.entity.Explosive) this.getBukkitEntity());
 diff --git a/src/main/java/net/minecraft/world/entity/projectile/Projectile.java b/src/main/java/net/minecraft/world/entity/projectile/Projectile.java
-index 73d18318afff5eac5966ddaeadf014524d06ec66..90f6a355e345f409ad7702ddc2b6c81ef4e7b933 100644
+index 878757f6b5034ed54198102cf8d48ace580f856f..17a9ac588490232e8883d5df1619e1290e260a9b 100644
 --- a/src/main/java/net/minecraft/world/entity/projectile/Projectile.java
 +++ b/src/main/java/net/minecraft/world/entity/projectile/Projectile.java
-@@ -320,6 +320,6 @@ public abstract class Projectile extends Entity {
+@@ -326,6 +326,6 @@ public abstract class Projectile extends Entity {
      public boolean mayInteract(Level world, BlockPos pos) {
          Entity entity = this.getOwner();
  

@@ -5,10 +5,10 @@ Subject: [PATCH] Add canSaveToDisk to Entity
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index e1f161c3ebcf7eb1eb5903144e88c411c9234fbf..02c4c7970dea0a1d9612077c548e118e3b0dc732 100644
+index 9d27266cbf53faa6e3b7ebec1a4cc9f7eb84ab0e..1e9fa0c362d8d2ea6c8da68f266a54dcf35782fb 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -4494,5 +4494,9 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -4496,5 +4496,9 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
      public boolean processClick(InteractionHand hand) {
          return false;
      }

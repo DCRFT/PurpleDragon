@@ -5,10 +5,10 @@ Subject: [PATCH] Flying Fall Damage API
 
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index a45e8af464c143cfae5c300aac8ce0093176e73a..3c9ac7aeac5abb424fffb1f39008c5b16f1ed207 100644
+index 935220b5fa5015def0c9c2f4b7772a72220d3c34..9e06d2cff73d3eed08b7e7855cd30fdad77891c3 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -2720,5 +2720,19 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+@@ -2746,5 +2746,19 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
       * @param invulnerableTicks Invulnerable ticks remaining
       */
      void setSpawnInvulnerableTicks(int invulnerableTicks);

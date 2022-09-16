@@ -5,10 +5,10 @@ Subject: [PATCH] Implement respawn anchor explosion options
 
 
 diff --git a/src/main/java/net/minecraft/world/level/block/RespawnAnchorBlock.java b/src/main/java/net/minecraft/world/level/block/RespawnAnchorBlock.java
-index 07e893f1859abe3c2a765694c21309d60346ca82..0fabe3ec1e9d7dae952db1f1e3dd3af879f0bc54 100644
+index 491ad2098e982f3c947fcae6f258f0b1aa44a562..39b3d9ce9fbaa7854d81b304f22ee1935c62d3f3 100644
 --- a/src/main/java/net/minecraft/world/level/block/RespawnAnchorBlock.java
 +++ b/src/main/java/net/minecraft/world/level/block/RespawnAnchorBlock.java
-@@ -120,7 +120,7 @@ public class RespawnAnchorBlock extends Block {
+@@ -124,7 +124,7 @@ public class RespawnAnchorBlock extends Block {
                  return pos.equals(explodedPos) && bl2 ? Optional.of(Blocks.WATER.getExplosionResistance()) : super.getBlockExplosionResistance(explosion, world, pos, blockState, fluidState);
              }
          };
@@ -18,7 +18,7 @@ index 07e893f1859abe3c2a765694c21309d60346ca82..0fabe3ec1e9d7dae952db1f1e3dd3af8
  
      public static boolean canSetSpawn(Level world) {
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index f4588e514e60bb244c789b162b8503c236950a3b..a38a4bdba8c87bfce09487714b58082f74432b9d 100644
+index 300404c79b0f47219e3a641f75a935cbac9d194a..d6f6cf7e17d9cd5b1398aab8e2b9b6df75fea02e 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 @@ -324,6 +324,22 @@ public class PurpurWorldConfig {

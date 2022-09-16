@@ -5,10 +5,10 @@ Subject: [PATCH] Add toggle for end portal safe teleporting
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 6c45a860407e42d0f72ab02afddc5b1feca837f3..f09f233c2005b600feffee27237ce01c6207b255 100644
+index affbe839ad996722b2b4b93f82c12f4bbe055f85..2c60091945aa3510d34c21b31827cb0b7f302ec2 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -2831,7 +2831,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -2833,7 +2833,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
              }
  
              this.processPortalCooldown();

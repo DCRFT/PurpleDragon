@@ -5,10 +5,10 @@ Subject: [PATCH] Fix stuck in portals
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 80b67eb9c80db9bff4a5b697269fb5f971413f9c..af74a78ae1ea72e2a303821231c0537d40dd33b2 100644
+index 4b0a0f18708c887ea339f078aea4c988b222ce0c..49adcc516e880c9d1a4926115c0f6fc0f757d7e2 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1171,6 +1171,7 @@ public class ServerPlayer extends Player {
+@@ -1176,6 +1176,7 @@ public class ServerPlayer extends Player {
                  playerlist.sendPlayerPermissionLevel(this);
                  worldserver1.removePlayerImmediately(this, Entity.RemovalReason.CHANGED_DIMENSION);
                  this.unsetRemoved();
@@ -17,10 +17,10 @@ index 80b67eb9c80db9bff4a5b697269fb5f971413f9c..af74a78ae1ea72e2a303821231c0537d
                  // CraftBukkit end
                  this.setLevel(worldserver);
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 213dc23771b85da8db6825c4ba5463abe42f690c..5225812252721bd183957bd43bc485b2d7b9208d 100644
+index d94e28c53df16ca969ac128886cdb60cfd712145..1c996ff06017c178064877c5dd6bff591fa170f3 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -2780,12 +2780,15 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -2782,12 +2782,15 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
          return Vec3.directionFromRotation(this.getRotationVector());
      }
  

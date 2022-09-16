@@ -5,10 +5,10 @@ Subject: [PATCH] Configurable damage settings for magma blocks
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index df6caa1d3f3024b26b7e4b01ebb2e307138850dc..ab822d03cbd8cc5047277f42f29e4c736fb177b3 100644
+index 91bbb0b3d5a3d702a5b68e7b8a4146d7ec0f47b5..87e1a9aefa0c048c7f1619ad002538f7e2694bd7 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -1071,7 +1071,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -1078,7 +1078,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
                  }
                  // CraftBukkit end
  

@@ -5,10 +5,10 @@ Subject: [PATCH] AFK API
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 3abb10c70b09c63462f0090a6b576ba2d6657cb8..89189f12f467b6b97569553d3af47b14068a6a23 100644
+index 923a0afad1b2b14941c94332b373a704c32160a8..4f6aa9caaa471ecbeaff895508d3874577dbe5cd 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1969,8 +1969,58 @@ public class ServerPlayer extends Player {
+@@ -1974,8 +1974,58 @@ public class ServerPlayer extends Player {
  
      public void resetLastActionTime() {
          this.lastActionTime = Util.getMillis();
@@ -68,7 +68,7 @@ index 3abb10c70b09c63462f0090a6b576ba2d6657cb8..89189f12f467b6b97569553d3af47b14
          return this.stats;
      }
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 334e73a646bb02fcfef331229a07e790d9ec6c67..81de9d96c1d3b36a3616ba824878c04b4d4fa745 100644
+index fe1bcca1af2bcb9e19a01ddd5cd5a8bb3789f7aa..974a94086c06cceffff3be2e0fa702967ef11d56 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -292,6 +292,20 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
@@ -114,7 +114,7 @@ index 334e73a646bb02fcfef331229a07e790d9ec6c67..81de9d96c1d3b36a3616ba824878c04b
                      // Skip the first time we do this
                      if (true) { // Spigot - don't skip any move events
                          Location oldTo = to.clone();
-@@ -1448,7 +1470,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
+@@ -1449,7 +1471,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
  
                              if (!this.player.isChangingDimension() && d11 > org.spigotmc.SpigotConfig.movedWronglyThreshold && !this.player.isSleeping() && !this.player.gameMode.isCreative() && this.player.gameMode.getGameModeForPlayer() != GameType.SPECTATOR) { // Spigot
                                  flag2 = true; // Paper - diff on change, this should be moved wrongly
@@ -123,7 +123,7 @@ index 334e73a646bb02fcfef331229a07e790d9ec6c67..81de9d96c1d3b36a3616ba824878c04b
                              }
  
                              this.player.absMoveTo(d0, d1, d2, f, f1);
-@@ -1498,6 +1520,8 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
+@@ -1499,6 +1521,8 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
                                      this.lastYaw = to.getYaw();
                                      this.lastPitch = to.getPitch();
  
@@ -200,10 +200,10 @@ index e13b2b88e427aba1c4e6a924f4c8474d60976eb1..0228eb3bd816c35fcf4607f0a140b1e6
      public boolean processClick(InteractionHand hand) {
          Entity vehicle = getRootVehicle();
 diff --git a/src/main/java/net/minecraft/world/level/EntityGetter.java b/src/main/java/net/minecraft/world/level/EntityGetter.java
-index 1f4b72a0aca200b2e0860449c718e6e607d2fc47..e1dd8932594780b07db13f68efa117eb34b6563f 100644
+index 3f458ddd4dc04ed28510a212be76bb19e7f6a61e..a36469186f72eccf8c4428d920d0583bf57b087e 100644
 --- a/src/main/java/net/minecraft/world/level/EntityGetter.java
 +++ b/src/main/java/net/minecraft/world/level/EntityGetter.java
-@@ -157,7 +157,7 @@ public interface EntityGetter {
+@@ -156,7 +156,7 @@ public interface EntityGetter {
  
      default boolean hasNearbyAlivePlayer(double x, double y, double z, double range) {
          for(Player player : this.players()) {
@@ -213,10 +213,10 @@ index 1f4b72a0aca200b2e0860449c718e6e607d2fc47..e1dd8932594780b07db13f68efa117eb
                  if (range < 0.0D || d < range * range) {
                      return true;
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index e83d1abd9602a8b460a21d10d5edcb75f1de0883..a95b245ca2fa333085b0fc47f2cc5c5e96dcd075 100644
+index 9ea7691df5d19e4f7d65869af508e38280027467..796eb59a14ace2918e0fd88b43b56b275221d6fc 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -435,10 +435,15 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -445,10 +445,15 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
  
      @Override
      public void setPlayerListName(String name) {
@@ -233,7 +233,7 @@ index e83d1abd9602a8b460a21d10d5edcb75f1de0883..a95b245ca2fa333085b0fc47f2cc5c5e
          for (ServerPlayer player : (List<ServerPlayer>) server.getHandle().players) {
              if (player.getBukkitEntity().canSee(this)) {
                  player.connection.send(new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.UPDATE_DISPLAY_NAME, this.getHandle()));
-@@ -2709,5 +2714,20 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2803,5 +2808,20 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
      public boolean usesPurpurClient() {
          return getHandle().purpurClient;
      }
@@ -305,7 +305,7 @@ index c38d9583d8ce50670d78b60d92c90d1d5eb4bbfc..01a2d17790b3adbc63fe742b9e5c11dd
      public boolean untamedTamablesAreRidable = true;
      public boolean useNightVisionWhenRiding = false;
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index 59a6cb575e40465275184cb816c862c79995c729..2e8a395fb6792c1f7595177e8503d27211f4ae96 100644
+index 8643df8d81714edf60eebd6984bac2c933d1fbd6..4e5583cdd78608108bb1788e6881d4b4fbf014af 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
 @@ -203,6 +203,7 @@ public class ActivationRange

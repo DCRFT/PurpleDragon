@@ -5,10 +5,10 @@ Subject: [PATCH] Signs allow color codes
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index a5617b0f34e842302e86be3c46479855a2d6d5e1..a8e5d4dff9ecd250a1d8991be9e4ee88bf7b28dd 100644
+index 0a345562354dc3f1e1366da96149d204a95f6fbc..b717dad7145eeb7b4d1f6870779c1df9dea3261a 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1496,6 +1496,7 @@ public class ServerPlayer extends Player {
+@@ -1501,6 +1501,7 @@ public class ServerPlayer extends Player {
  
      @Override
      public void openTextEdit(SignBlockEntity sign) {
@@ -17,10 +17,10 @@ index a5617b0f34e842302e86be3c46479855a2d6d5e1..a8e5d4dff9ecd250a1d8991be9e4ee88
          this.connection.send(new ClientboundBlockUpdatePacket(this.level, sign.getBlockPos()));
          this.connection.send(new ClientboundOpenSignEditorPacket(sign.getBlockPos()));
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 74edfa3738468feacfc7e82b4893a1efc9f3198f..bf635517f03d16003f951e80f19253ce99d4097d 100644
+index 44581f275fb2133e96599af6460ff5e841b7aa88..5d930933dd3fdca91374eba8991275faebd86935 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -3189,11 +3189,15 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
+@@ -3195,11 +3195,15 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Ser
                  }
                  // Paper end
  
@@ -42,10 +42,10 @@ index 74edfa3738468feacfc7e82b4893a1efc9f3198f..bf635517f03d16003f951e80f19253ce
              SignChangeEvent event = new SignChangeEvent((org.bukkit.craftbukkit.block.CraftBlock) player.getWorld().getBlockAt(x, y, z), this.player.getBukkitEntity(), lines);
              this.cserver.getPluginManager().callEvent(event);
 diff --git a/src/main/java/net/minecraft/world/level/block/entity/SignBlockEntity.java b/src/main/java/net/minecraft/world/level/block/entity/SignBlockEntity.java
-index 6371176fba41218a209ea59b4cafe5b2d4a685fd..7666bca74f4f68bb4e902ec2eb7c4895adbb9373 100644
+index d5bcc81a809e3c733c6fc11309bcf0913860edf6..1846aeffc9ad24405ddce0e727552fa6df6e3997 100644
 --- a/src/main/java/net/minecraft/world/level/block/entity/SignBlockEntity.java
 +++ b/src/main/java/net/minecraft/world/level/block/entity/SignBlockEntity.java
-@@ -184,6 +184,23 @@ public class SignBlockEntity extends BlockEntity implements CommandSource { // C
+@@ -186,6 +186,23 @@ public class SignBlockEntity extends BlockEntity implements CommandSource { // C
          return ClientboundBlockEntityDataPacket.create(this);
      }
  
@@ -56,7 +56,7 @@ index 6371176fba41218a209ea59b4cafe5b2d4a685fd..7666bca74f4f68bb4e902ec2eb7c4895
 +        final Component[] lines = getMessages(filtered);
 +        for (int i = 0; i < 4; i++) {
 +            final var component = io.papermc.paper.adventure.PaperAdventure.asAdventure(lines[i]);
-+            final String line = io.papermc.paper.adventure.PaperAdventure.LEGACY_AMPERSAND.serialize(component);
++            final String line = net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand().serialize(component);
 +            final var text = net.kyori.adventure.text.Component.text(line);
 +            final String json = net.kyori.adventure.text.serializer.gson.GsonComponentSerializer.gson().serialize(text);
 +            nbt.putString("Text" + (i + 1), json);
