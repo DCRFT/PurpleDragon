@@ -1,0 +1,25 @@
+From 22738f29317b5c92072262cd38fe3d231facf107 Mon Sep 17 00:00:00 2001
+From: NickNicker <nick4nicker@gmail.com>
+Date: Fri, 16 Sep 2022 19:29:49 +0200
+Subject: [PATCH] add custom ip forwarding message
+
+---
+ .../server/network/ServerHandshakePacketListenerImpl.java       | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
+index 08b21f5a7..e84c4cf06 100644
+--- a/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
++++ b/src/main/java/net/minecraft/server/network/ServerHandshakePacketListenerImpl.java
+@@ -129,7 +129,7 @@ public class ServerHandshakePacketListenerImpl implements ServerHandshakePacketL
+                             connection.spoofedUUID = com.mojang.util.UUIDTypeAdapter.fromString( split[2] );
+                         } else
+                         {
+-                            Component chatmessage = Component.literal("If you wish to use IP forwarding, please enable it in your BungeeCord config as well!");
++                            Component chatmessage = Component.literal("§e§lDragon§6§lCraft §e» §cWejdź przez IP: §eDCRFT.PL");
+                             this.connection.send(new ClientboundLoginDisconnectPacket(chatmessage));
+                             this.connection.disconnect(chatmessage);
+                             return;
+-- 
+2.37.3
+
