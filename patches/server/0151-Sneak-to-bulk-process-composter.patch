@@ -5,10 +5,10 @@ Subject: [PATCH] Sneak to bulk process composter
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java b/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java
-index 5a60f5dc202c44b06ca34e9a19d45cb715f74fd3..8d3468353358e9f366db671090725d724bdf842f 100644
+index 0a5f8d990cce5df339fd9b2b0fcb291a20ddad41..e832bca50878a34339e142da5a9c765ae57eb3c8 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayerGameMode.java
-@@ -565,7 +565,7 @@ public class ServerPlayerGameMode {
+@@ -566,7 +566,7 @@ public class ServerPlayerGameMode {
              boolean flag1 = player.isSecondaryUseActive() && flag;
              ItemStack itemstack1 = stack.copy();
  
@@ -90,10 +90,10 @@ index 492e3ffd6a4588a521486db631f3e8b2a25b74ec..954c4a112d675144befd253abe880251
          int i = (Integer) iblockdata.getValue(ComposterBlock.LEVEL);
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index c01ddef1966843748f434ae195b38d2f290388ec..9c925dbee68ae33ae98436a5bb70d7fc5b55fe23 100644
+index 37d4e08d6c1c3683514f679a9ab772a28d4010a1..9649618c5d5721e1ce2fb4f59d22e352b4b614dd 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -474,6 +474,11 @@ public class PurpurWorldConfig {
+@@ -477,6 +477,11 @@ public class PurpurWorldConfig {
          chestOpenWithBlockOnTop = getBoolean("blocks.chest.open-with-solid-block-on-top", chestOpenWithBlockOnTop);
      }
  

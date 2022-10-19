@@ -5,38 +5,49 @@ Subject: [PATCH] Allow anvil colors
 
 
 diff --git a/src/main/java/net/minecraft/world/inventory/AnvilMenu.java b/src/main/java/net/minecraft/world/inventory/AnvilMenu.java
-index 0363d2263b2d6bd6166fa21d7849297e95eddd77..800df3b7c04ce7ed52f265d681e7752f63ae4ec7 100644
+index 0363d2263b2d6bd6166fa21d7849297e95eddd77..3dbef489a0bf27fbef95de599970141f4aa783f3 100644
 --- a/src/main/java/net/minecraft/world/inventory/AnvilMenu.java
 +++ b/src/main/java/net/minecraft/world/inventory/AnvilMenu.java
-@@ -280,6 +280,17 @@ public class AnvilMenu extends ItemCombinerMenu {
+@@ -280,6 +280,26 @@ public class AnvilMenu extends ItemCombinerMenu {
              } else if (!this.itemName.equals(itemstack.getHoverName().getString())) {
                  b1 = 1;
                  i += b1;
 +                // Purpur start
-+                if (player != null && player.level.purpurConfig.anvilAllowColors && player.getBukkitEntity().hasPermission("purpur.anvil.color")) {
++                if (player != null && player.level.purpurConfig.anvilAllowColors) {
++                    org.bukkit.craftbukkit.entity.CraftHumanEntity bukkitPlayer = player.getBukkitEntity();
 +                    final net.kyori.adventure.text.Component renameTextComponent;
-+                    if (itemName.startsWith("&r") && player.getBukkitEntity().hasPermission("purpur.anvil.remove_italics")) {
++                    if (player.level.purpurConfig.anvilColorsUseMiniMessage && bukkitPlayer.hasPermission("purpur.anvil.minimessage")) {
++                        renameTextComponent = net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().deserialize(itemName);
++                        itemstack1.setHoverName(io.papermc.paper.adventure.PaperAdventure.asVanilla(renameTextComponent));
++                    } else if (itemName.startsWith("&r") && player.getBukkitEntity().hasPermission("purpur.anvil.remove_italics")) {
 +                        renameTextComponent = net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand().deserialize(itemName.substring(2)).decoration(net.kyori.adventure.text.format.TextDecoration.ITALIC, false);
-+                    } else {
++                        itemstack1.setHoverName(io.papermc.paper.adventure.PaperAdventure.asVanilla(renameTextComponent));
++                    } else if (bukkitPlayer.hasPermission("purpur.anvil.color")) {
 +                        renameTextComponent = net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacyAmpersand().deserialize(itemName);
++                        itemstack1.setHoverName(io.papermc.paper.adventure.PaperAdventure.asVanilla(renameTextComponent));
++                    } else if (player.getBukkitEntity().hasPermission("purpur.anvil.format")){
++                        itemName = itemName.replaceAll("(?i)&([l-or])", "\u00a7$1");
++                        renameTextComponent = net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().deserialize(itemName);
++                        itemstack1.setHoverName(io.papermc.paper.adventure.PaperAdventure.asVanilla(renameTextComponent));
 +                    }
-+                    itemstack1.setHoverName(io.papermc.paper.adventure.PaperAdventure.asVanilla(renameTextComponent));
 +                } else
 +                // Purpur end
                  itemstack1.setHoverName(Component.literal(this.itemName));
              }
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 8137db4239792b114b7f5886a502e6a10176304f..f619f15d5f1e71af80b9df73d3632eeef38a9d5d 100644
+index 2421b9d2c41a878ff01c81753d140c50f30ef4c2..a7b763a1d86c98128a4c5f600ae89ab79fd7e22d 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -299,6 +299,11 @@ public class PurpurWorldConfig {
+@@ -300,6 +300,13 @@ public class PurpurWorldConfig {
          });
      }
  
 +    public boolean anvilAllowColors = false;
++    public boolean anvilColorsUseMiniMessage;
 +    private void anvilSettings() {
 +        anvilAllowColors = getBoolean("blocks.anvil.allow-colors", anvilAllowColors);
++        anvilColorsUseMiniMessage = getBoolean("blocks.anvil.use-mini-message", anvilColorsUseMiniMessage);
 +    }
 +
      public boolean bedExplode = true;

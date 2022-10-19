@@ -5,7 +5,7 @@ Subject: [PATCH] Drowning Settings
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 51fd2d02236da23a57773086313fee8183817346..8d97593403198941ff6775dd8576a0e4ea8eb83e 100644
+index 6a914c3185bac2f3cce6c45d98012ed53fbdab24..c3be1e6d54862dc7e1615e4fe3771b8f38e44f8a 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -3128,7 +3128,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
@@ -18,7 +18,7 @@ index 51fd2d02236da23a57773086313fee8183817346..8d97593403198941ff6775dd8576a0e4
  
      public int getAirSupply() {
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index c318a83363048e052333e98705f94217039662c4..8820cc6ed4ab7de2d0574575d8168ff4f85a1ea1 100644
+index c5f0c5ce4e20670fe2a61e4775e01094a0d36ed6..0c830930522c38a7baf689beebf65970e96c3461 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -423,7 +423,7 @@ public abstract class LivingEntity extends Entity {
@@ -40,10 +40,10 @@ index c318a83363048e052333e98705f94217039662c4..8820cc6ed4ab7de2d0574575d8168ff4
                  }
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index f6450f2c6a2c26c13af8df4cb2b8c7c2aacda7aa..286d125efccc16314fc03bb130be8a766183a39c 100644
+index 91e2410ea09333ae65960ca67414333625857cb5..efba22df32b2c89360046005a381bf8b9c332f18 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -166,6 +166,15 @@ public class PurpurWorldConfig {
+@@ -167,6 +167,15 @@ public class PurpurWorldConfig {
          nighttimeTicks = getInt("gameplay-mechanics.daylight-cycle-ticks.nighttime", nighttimeTicks);
      }
  

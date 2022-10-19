@@ -5,10 +5,10 @@ Subject: [PATCH] Configs for if Wither/Ender Dragon can ride vehicles
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-index 23e5ab0e3b99659d30d8139dc005a714741a97c7..6c0bcbf1a2a0ccd3efa4827cd04289eb3e1f41e8 100644
+index 0363ba7cd8aa6c2f585355d2c8a86263277d6cfd..c77a9ce015cb219d9ecd68223858dbb775a4ea9b 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-@@ -1156,6 +1156,7 @@ public class EnderDragon extends Mob implements Enemy {
+@@ -1155,6 +1155,7 @@ public class EnderDragon extends Mob implements Enemy {
  
      @Override
      protected boolean canRide(Entity entity) {
@@ -17,10 +17,10 @@ index 23e5ab0e3b99659d30d8139dc005a714741a97c7..6c0bcbf1a2a0ccd3efa4827cd04289eb
      }
  
 diff --git a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-index 1329de5d3e6294d2eb7b6852b8cad19f0f4dba77..6818618cd2f702e894ac4098b4eb5afc7664408e 100644
+index d5fc11b01fcd064562173fb35856686f6977144e..0c3fe609a9d4c4c485b1a11e6ec39c06464cda05 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-@@ -749,6 +749,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
+@@ -748,6 +748,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
  
      @Override
      protected boolean canRide(Entity entity) {
@@ -29,10 +29,10 @@ index 1329de5d3e6294d2eb7b6852b8cad19f0f4dba77..6818618cd2f702e894ac4098b4eb5afc
      }
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 570e90dd3cd3bbd3078893fb972f7018b516f3e0..3624304329d0a6728c0e4981bd9dcfb350edaab5 100644
+index af37829b104073589d67d66ab826bb64fb95d7dc..13eb84cf590bbe4c5a71b47f1c08e57b5711f089 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -914,6 +914,7 @@ public class PurpurWorldConfig {
+@@ -917,6 +917,7 @@ public class PurpurWorldConfig {
      public boolean enderDragonAlwaysDropsFullExp = false;
      public boolean enderDragonBypassMobGriefing = false;
      public boolean enderDragonTakeDamageFromWater = false;
@@ -40,7 +40,7 @@ index 570e90dd3cd3bbd3078893fb972f7018b516f3e0..3624304329d0a6728c0e4981bd9dcfb3
      private void enderDragonSettings() {
          enderDragonRidable = getBoolean("mobs.ender_dragon.ridable", enderDragonRidable);
          enderDragonRidableInWater = getBoolean("mobs.ender_dragon.ridable-in-water", enderDragonRidableInWater);
-@@ -932,6 +933,7 @@ public class PurpurWorldConfig {
+@@ -935,6 +936,7 @@ public class PurpurWorldConfig {
          enderDragonAlwaysDropsFullExp = getBoolean("mobs.ender_dragon.always-drop-full-exp", enderDragonAlwaysDropsFullExp);
          enderDragonBypassMobGriefing = getBoolean("mobs.ender_dragon.bypass-mob-griefing", enderDragonBypassMobGriefing);
          enderDragonTakeDamageFromWater = getBoolean("mobs.ender_dragon.takes-damage-from-water", enderDragonTakeDamageFromWater);
@@ -48,7 +48,7 @@ index 570e90dd3cd3bbd3078893fb972f7018b516f3e0..3624304329d0a6728c0e4981bd9dcfb3
      }
  
      public boolean endermanRidable = false;
-@@ -2126,6 +2128,7 @@ public class PurpurWorldConfig {
+@@ -2129,6 +2131,7 @@ public class PurpurWorldConfig {
      public int witherHealthRegenDelay = 20;
      public boolean witherBypassMobGriefing = false;
      public boolean witherTakeDamageFromWater = false;
@@ -56,7 +56,7 @@ index 570e90dd3cd3bbd3078893fb972f7018b516f3e0..3624304329d0a6728c0e4981bd9dcfb3
      private void witherSettings() {
          witherRidable = getBoolean("mobs.wither.ridable", witherRidable);
          witherRidableInWater = getBoolean("mobs.wither.ridable-in-water", witherRidableInWater);
-@@ -2145,6 +2148,7 @@ public class PurpurWorldConfig {
+@@ -2148,6 +2151,7 @@ public class PurpurWorldConfig {
          witherHealthRegenDelay = getInt("mobs.wither.health-regen-delay", witherHealthRegenDelay);
          witherBypassMobGriefing = getBoolean("mobs.wither.bypass-mob-griefing", witherBypassMobGriefing);
          witherTakeDamageFromWater = getBoolean("mobs.wither.takes-damage-from-water", witherTakeDamageFromWater);

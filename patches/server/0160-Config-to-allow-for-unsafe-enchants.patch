@@ -27,7 +27,7 @@ index 7c012f1e37b0085c0939797b0dae8996b4953ab8..155b0a1aa58b891e98a55e10f112f611
                              ++i;
                          } else if (targets.size() == 1) {
 diff --git a/src/main/java/net/minecraft/world/inventory/AnvilMenu.java b/src/main/java/net/minecraft/world/inventory/AnvilMenu.java
-index 800df3b7c04ce7ed52f265d681e7752f63ae4ec7..33c33a953cdd47c30720225b10a5378f16daf225 100644
+index 3dbef489a0bf27fbef95de599970141f4aa783f3..f62c39b42f449c857a75af6650ad21f9e4c3f423 100644
 --- a/src/main/java/net/minecraft/world/inventory/AnvilMenu.java
 +++ b/src/main/java/net/minecraft/world/inventory/AnvilMenu.java
 @@ -209,7 +209,8 @@ public class AnvilMenu extends ItemCombinerMenu {
@@ -60,7 +60,7 @@ index 800df3b7c04ce7ed52f265d681e7752f63ae4ec7..33c33a953cdd47c30720225b10a5378f
                                      i2 = enchantment.getMaxLevel();
                                  }
  
-@@ -333,7 +334,7 @@ public class AnvilMenu extends ItemCombinerMenu {
+@@ -342,7 +343,7 @@ public class AnvilMenu extends ItemCombinerMenu {
              sendAllDataToRemote(); // CraftBukkit - SPIGOT-6686: Always send completed inventory to stay in sync with client
              this.broadcastChanges();
              // Purpur start
@@ -87,10 +87,10 @@ index 2b2115d218a279245f8be5e0c93a2b6200f81241..f7017c330ee2d8e17ab2be294865d7e3
          this.getOrCreateTag().put(key, element);
      }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index d4f66066dce1c6e4571ebefb68a4ef537718921c..79929c701983c1ac316c2623e3375175859cf068 100644
+index 1659f76cfffab544b91cd1e6237047873ccfe256..09198dd9db8f39fadf95d58fddb70a9104b79e6c 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -278,14 +278,32 @@ public class PurpurConfig {
+@@ -283,14 +283,32 @@ public class PurpurConfig {
  
      public static boolean allowInfinityMending = false;
      public static boolean allowCrossbowInfinity = false;

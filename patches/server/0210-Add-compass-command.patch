@@ -17,18 +17,18 @@ index 6a044a9c97db9bba75f8dbbaa8515e3167841855..edd378813873ed367784379b0f1666d1
  
          if (environment.includeIntegrated) {
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 18e5d1440de271571940795b074cbcd027dc6a19..68008facb6cfcccbcb7501c84c5da9014321ce4a 100644
+index b9112a8aa9f821e08e26941715cadc36672a5338..74ac7e6a2e95f4920dde94bfff5ff26dbc99edaa 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -265,6 +265,7 @@ public class ServerPlayer extends Player {
+@@ -264,6 +264,7 @@ public class ServerPlayer extends Player {
      public boolean purpurClient = false; // Purpur
      public boolean acceptingResourcePack = false; // Purpur
      private boolean tpsBar = false; // Purpur
 +    private boolean compassBar = false; // Purpur
  
+     public boolean isRealPlayer; // Paper
      public double lastEntitySpawnRadiusSquared; // Paper - optimise isOutsideRange, this field is in blocks
-     public final com.destroystokyo.paper.util.misc.PooledLinkedHashSets.PooledObjectLinkedOpenHashSet<ServerPlayer> cachedSingleHashSet; // Paper
-@@ -487,6 +488,7 @@ public class ServerPlayer extends Player {
+@@ -491,6 +492,7 @@ public class ServerPlayer extends Player {
          }
  
          if (nbt.contains("Purpur.TPSBar")) { this.tpsBar = nbt.getBoolean("Purpur.TPSBar"); } // Purpur
@@ -36,7 +36,7 @@ index 18e5d1440de271571940795b074cbcd027dc6a19..68008facb6cfcccbcb7501c84c5da901
      }
  
      @Override
-@@ -548,6 +550,7 @@ public class ServerPlayer extends Player {
+@@ -552,6 +554,7 @@ public class ServerPlayer extends Player {
          this.getBukkitEntity().setExtraData(nbt); // CraftBukkit
  
          nbt.putBoolean("Purpur.TPSBar", this.tpsBar); // Purpur
@@ -44,7 +44,7 @@ index 18e5d1440de271571940795b074cbcd027dc6a19..68008facb6cfcccbcb7501c84c5da901
      }
  
      // CraftBukkit start - World fallback code, either respawn location or global spawn
-@@ -2626,5 +2629,13 @@ public class ServerPlayer extends Player {
+@@ -2629,5 +2632,13 @@ public class ServerPlayer extends Player {
      public void tpsBar(boolean tpsBar) {
          this.tpsBar = tpsBar;
      }
@@ -59,10 +59,10 @@ index 18e5d1440de271571940795b074cbcd027dc6a19..68008facb6cfcccbcb7501c84c5da901
      // Purpur end
  }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index c1b7b01c7588cffed238143617dcf2f48a0b241a..c36321f395c7845c73541fa1eb320da7b12ad071 100644
+index 695e6376fcf3306be49e593126576c1773b5792e..bf3bbe2d26f5ce6e6b00b36d9ea269df7d19e92d 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -263,6 +263,11 @@ public class PurpurConfig {
+@@ -268,6 +268,11 @@ public class PurpurConfig {
      public static String commandTPSBarTextColorMedium = "<gradient:#ffff55:#ffaa00><text></gradient>";
      public static String commandTPSBarTextColorLow = "<gradient:#ff5555:#aa0000><text></gradient>";
      public static int commandTPSBarTickInterval = 20;
@@ -74,7 +74,7 @@ index c1b7b01c7588cffed238143617dcf2f48a0b241a..c36321f395c7845c73541fa1eb320da7
      public static boolean commandGamemodeRequiresPermission = false;
      public static boolean hideHiddenPlayersFromEntitySelector = false;
      public static String uptimeFormat = "<days><hours><minutes><seconds>";
-@@ -285,6 +290,13 @@ public class PurpurConfig {
+@@ -290,6 +295,13 @@ public class PurpurConfig {
          commandTPSBarTextColorMedium = getString("settings.command.tpsbar.text-color.medium", commandTPSBarTextColorMedium);
          commandTPSBarTextColorLow = getString("settings.command.tpsbar.text-color.low", commandTPSBarTextColorLow);
          commandTPSBarTickInterval = getInt("settings.command.tpsbar.tick-interval", commandTPSBarTickInterval);
@@ -89,10 +89,10 @@ index c1b7b01c7588cffed238143617dcf2f48a0b241a..c36321f395c7845c73541fa1eb320da7
          hideHiddenPlayersFromEntitySelector = getBoolean("settings.command.hide-hidden-players-from-entity-selector", hideHiddenPlayersFromEntitySelector);
          uptimeFormat = getString("settings.command.uptime.format", uptimeFormat);
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 90c70d233327615004fc22cde6b9d71660bb0a5b..64340213b2122ddc2e39eeac628b69d6f87c7a8f 100644
+index 0fe874bb1eb3bd3eb644602416153b39a5dd5c0c..700c40fd0ba469ba034153f422ad179ece61e330 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -222,6 +222,7 @@ public class PurpurWorldConfig {
+@@ -223,6 +223,7 @@ public class PurpurWorldConfig {
      public float enderPearlEndermiteChance = 0.05F;
      public int glowBerriesEatGlowDuration = 0;
      public boolean shulkerBoxItemDropContentsWhenDestroyed = true;
@@ -100,7 +100,7 @@ index 90c70d233327615004fc22cde6b9d71660bb0a5b..64340213b2122ddc2e39eeac628b69d6
      private void itemSettings() {
          itemImmuneToCactus.clear();
          getList("gameplay-mechanics.item.immune.cactus", new ArrayList<>()).forEach(key -> {
-@@ -267,6 +268,7 @@ public class PurpurWorldConfig {
+@@ -268,6 +269,7 @@ public class PurpurWorldConfig {
          enderPearlEndermiteChance = (float) getDouble("gameplay-mechanics.item.ender-pearl.endermite-spawn-chance", enderPearlEndermiteChance);
          glowBerriesEatGlowDuration = getInt("gameplay-mechanics.item.glow_berries.eat-glow-duration", glowBerriesEatGlowDuration);
          shulkerBoxItemDropContentsWhenDestroyed = getBoolean("gameplay-mechanics.item.shulker_box.drop-contents-when-destroyed", shulkerBoxItemDropContentsWhenDestroyed);

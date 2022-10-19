@@ -5,10 +5,10 @@ Subject: [PATCH] Fix stuck in portals
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index b858ce2ad443f6690dd71e56fb9eea14793df19d..f8b7b12b0030fea6132b426b41adb2180f1b1157 100644
+index a82c8bf74a943adfd7ccf16b1c8787c31af060e6..83ab6eb805c5d6f2fff9da91e4e0d74f3d999f65 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -1184,6 +1184,7 @@ public class ServerPlayer extends Player {
+@@ -1188,6 +1188,7 @@ public class ServerPlayer extends Player {
                  playerlist.sendPlayerPermissionLevel(this);
                  worldserver1.removePlayerImmediately(this, Entity.RemovalReason.CHANGED_DIMENSION);
                  this.unsetRemoved();
@@ -17,7 +17,7 @@ index b858ce2ad443f6690dd71e56fb9eea14793df19d..f8b7b12b0030fea6132b426b41adb218
                  // CraftBukkit end
                  this.setLevel(worldserver);
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 628ea838c16a964bc233f166edc8105c1543e2f9..51fd2d02236da23a57773086313fee8183817346 100644
+index 9276b51813e1e0ac6cf8cf9a295d92db2f52b11e..6a914c3185bac2f3cce6c45d98012ed53fbdab24 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -2889,12 +2889,15 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
@@ -37,10 +37,10 @@ index 628ea838c16a964bc233f166edc8105c1543e2f9..51fd2d02236da23a57773086313fee81
  
              this.isInsidePortal = true;
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 7e20613a993780f0022b7586205f80248d3ea911..fe17225756bddfc1c94cc32a3e655794816e3e8a 100644
+index 97143ad57276e7f62b50578096972c7581a6158b..4e996becabad942aaaa5ccb097707b0e2fd83adb 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -337,6 +337,7 @@ public class PurpurWorldConfig {
+@@ -338,6 +338,7 @@ public class PurpurWorldConfig {
      public int playerDeathExpDropMax = 100;
      public boolean teleportIfOutsideBorder = false;
      public boolean totemOfUndyingWorksInInventory = false;
@@ -48,7 +48,7 @@ index 7e20613a993780f0022b7586205f80248d3ea911..fe17225756bddfc1c94cc32a3e655794
      private void playerSettings() {
          if (PurpurConfig.version < 19) {
              boolean oldVal = getBoolean("gameplay-mechanics.player.idle-timeout.mods-target", idleTimeoutTargetPlayer);
-@@ -354,6 +355,7 @@ public class PurpurWorldConfig {
+@@ -355,6 +356,7 @@ public class PurpurWorldConfig {
          playerDeathExpDropMax = getInt("gameplay-mechanics.player.exp-dropped-on-death.maximum", playerDeathExpDropMax);
          teleportIfOutsideBorder = getBoolean("gameplay-mechanics.player.teleport-if-outside-border", teleportIfOutsideBorder);
          totemOfUndyingWorksInInventory = getBoolean("gameplay-mechanics.player.totem-of-undying-works-in-inventory", totemOfUndyingWorksInInventory);

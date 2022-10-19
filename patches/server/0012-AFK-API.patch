@@ -5,10 +5,10 @@ Subject: [PATCH] AFK API
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 8e3e3dbbea328f76a790477545b46d2d3013546b..905aa1311791564720e541fc4fbe1e4f8d38a0e7 100644
+index 12e0308373684093736bd558606e5a46e159ca20..aa509809e88f85e28698bb22aed77169cbedfcf4 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -2001,8 +2001,58 @@ public class ServerPlayer extends Player {
+@@ -2006,8 +2006,58 @@ public class ServerPlayer extends Player {
  
      public void resetLastActionTime() {
          this.lastActionTime = Util.getMillis();
@@ -68,7 +68,7 @@ index 8e3e3dbbea328f76a790477545b46d2d3013546b..905aa1311791564720e541fc4fbe1e4f
          return this.stats;
      }
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index b5e3f57a1a8875c33c3a01a525efc69261bec44c..0f0a862e3f0702a9e61bcb6b80b0375c01f46da8 100644
+index 37f7e6d4ab2c5a043b122b34a4a0e57465826740..821ceb1b14bd0cadab306e9ac3d9abdc9d345cf6 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -342,6 +342,20 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Tic
@@ -123,7 +123,7 @@ index b5e3f57a1a8875c33c3a01a525efc69261bec44c..0f0a862e3f0702a9e61bcb6b80b0375c
                              }
  
                              this.player.absMoveTo(d0, d1, d2, f, f1);
-@@ -1598,6 +1620,8 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Tic
+@@ -1599,6 +1621,8 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Tic
                                      this.lastYaw = to.getYaw();
                                      this.lastPitch = to.getPitch();
  
@@ -213,10 +213,10 @@ index 3f458ddd4dc04ed28510a212be76bb19e7f6a61e..a36469186f72eccf8c4428d920d0583b
                  if (range < 0.0D || d < range * range) {
                      return true;
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index a8d99ec7bdeef49e4bd131a824a5d4c5b5df3c08..d081d70337e042555aad95d747fd4ee011d77a36 100644
+index 622ec4316df5bae2466f28173c121634f73767d1..9a8c4da2151cf7bfeef545d754274bb92152e185 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -442,10 +442,15 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -522,10 +522,15 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
  
      @Override
      public void setPlayerListName(String name) {
@@ -233,7 +233,7 @@ index a8d99ec7bdeef49e4bd131a824a5d4c5b5df3c08..d081d70337e042555aad95d747fd4ee0
          for (ServerPlayer player : (List<ServerPlayer>) server.getHandle().players) {
              if (player.getBukkitEntity().canSee(this)) {
                  player.connection.send(new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.UPDATE_DISPLAY_NAME, this.getHandle()));
-@@ -2900,5 +2905,20 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2950,5 +2955,20 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
      public boolean usesPurpurClient() {
          return getHandle().purpurClient;
      }
@@ -255,10 +255,10 @@ index a8d99ec7bdeef49e4bd131a824a5d4c5b5df3c08..d081d70337e042555aad95d747fd4ee0
      // Purpur end
  }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index 8a7144a65594236a1ec7187348285174594d7a97..cf7925c5631815a53926543b79179c58e923402e 100644
+index 5bbfde1c69339f4ba1a0ed856b5de19742742c74..c55c434263e0b85fa75c23e943c3bfbc2e836c6c 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -169,8 +169,16 @@ public class PurpurConfig {
+@@ -174,8 +174,16 @@ public class PurpurConfig {
      }
  
      public static String cannotRideMob = "<red>You cannot mount that mob";
@@ -276,10 +276,10 @@ index 8a7144a65594236a1ec7187348285174594d7a97..cf7925c5631815a53926543b79179c58
  
      public static int barrelRows = 3;
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 6255b208de609d4e0331d611c2f0c7bcb54df073..b9580396b99af75ae4895b09fd8f10a56d0f6046 100644
+index b411ba7283b8d6abf7cf53c3c82b612c801ebbee..657dfaa9cf2990fcade8739d3e1c3f9e71e2d38d 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -92,6 +92,24 @@ public class PurpurWorldConfig {
+@@ -93,6 +93,24 @@ public class PurpurWorldConfig {
          return value.isEmpty() ? fallback : value;
      }
  

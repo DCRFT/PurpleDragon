@@ -20,10 +20,10 @@ index 06e3a868e922f1b7a586d0ca28f64a67ae463b68..32beb045f990d4da6112da4fea295333
                          itemstack.setCount(1);
                          entityitem = entityplayer.drop(itemstack, false, false, false); // SPIGOT-2942: Add boolean to call event
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index 867b1ff54e003277939f5fb55e322b52302ccc5b..b2e456e83137f70ca21358d0da2f777a98a4e2be 100644
+index 94d62b88dcb6b98f3ad2e10eafa4ef782c825f4f..c4bdb9f2aab98d8915f4079f4815c10f97334f71 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -202,6 +202,11 @@ public class PurpurConfig {
+@@ -207,6 +207,11 @@ public class PurpurConfig {
          useAlternateKeepAlive = getBoolean("settings.use-alternate-keepalive", useAlternateKeepAlive);
      }
  

@@ -5,10 +5,10 @@ Subject: [PATCH] Configurable TPS Catchup
 
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 610f3ba3a983144b8b7f56e39d1c60bde6f35491..9ff46c460f09bf3e62f958a4a87632d59a310e24 100644
+index c1719af753e4efa8fcbd49a801ee86b307d27779..963a1998f808061c7e7fcd0d15725e38fe606ce7 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1197,7 +1197,13 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1177,7 +1177,13 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
                  this.tickServer(this::haveTime);
                  this.profiler.popPush("nextTickWait");
                  this.mayHaveDelayedTasks = true;
@@ -24,10 +24,10 @@ index 610f3ba3a983144b8b7f56e39d1c60bde6f35491..9ff46c460f09bf3e62f958a4a87632d5
                  this.profiler.pop();
                  this.endMetricsRecordingTick();
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index 918eee23167fb9b39bd19ba1a6d8776f83d56ea2..75570f6de691fb5dc95dd31d2255f3913a7100dd 100644
+index 7570a38e31a49a02b7e7414ee001c1bf9afcb0e5..21582b20db2364f4dc6bd87d76b907c9451633d5 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -241,4 +241,9 @@ public class PurpurConfig {
+@@ -246,4 +246,9 @@ public class PurpurConfig {
          loggerSuppressUnrecognizedRecipeErrors = getBoolean("settings.logger.suppress-unrecognized-recipe-errors", loggerSuppressUnrecognizedRecipeErrors);
          loggerSuppressSetBlockFarChunk = getBoolean("settings.logger.suppress-setblock-in-far-chunk-errors", loggerSuppressSetBlockFarChunk);
      }

@@ -6,10 +6,10 @@ Subject: [PATCH] API for any mob to burn daylight
 Co-authored by: Encode42 <me@encode42.dev>
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index e9a931ce31257ad1a29c15d1619e5f80865f151b..9af78fde6b4d75cf7656c575b98e1e174f599e22 100644
+index c3be1e6d54862dc7e1615e4fe3771b8f38e44f8a..c44392af107fe4f5e3a77d69067f49cba2eee771 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -4611,5 +4611,20 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
+@@ -4634,5 +4634,20 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
      public boolean canSaveToDisk() {
          return true;
      }
@@ -31,7 +31,7 @@ index e9a931ce31257ad1a29c15d1619e5f80865f151b..9af78fde6b4d75cf7656c575b98e1e17
      // Purpur end
  }
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index a0d3c0c15380cf42049e1b27d8c73ea8e1624b89..142f25da0d758821ce192cea9c65921324c27ef8 100644
+index 3553f447f2c680799abf324b6f006af0346ab2f4..c649741c69b1ce80e822d4627527bd0147e53475 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -265,6 +265,7 @@ public abstract class LivingEntity extends Entity {
@@ -62,7 +62,7 @@ index a0d3c0c15380cf42049e1b27d8c73ea8e1624b89..142f25da0d758821ce192cea9c659213
      }
  
      // CraftBukkit start
-@@ -3482,6 +3489,27 @@ public abstract class LivingEntity extends Entity {
+@@ -3484,6 +3491,27 @@ public abstract class LivingEntity extends Entity {
              this.hurt(DamageSource.DROWN, 1.0F);
          }
  
@@ -91,7 +91,7 @@ index a0d3c0c15380cf42049e1b27d8c73ea8e1624b89..142f25da0d758821ce192cea9c659213
  
      public boolean isSensitiveToWater() {
 diff --git a/src/main/java/net/minecraft/world/entity/Mob.java b/src/main/java/net/minecraft/world/entity/Mob.java
-index 5a83abf504ca785a15d3ae0142a88e08a991e204..9ae5053c9c6591bdd8349e434ef505e64048b881 100644
+index 22f4cd68dc7f41441aae803c51adc90eb00e5977..d0c52f9cd2001aa14c04684c24ef32f07e55c905 100644
 --- a/src/main/java/net/minecraft/world/entity/Mob.java
 +++ b/src/main/java/net/minecraft/world/entity/Mob.java
 @@ -1685,17 +1685,7 @@ public abstract class Mob extends LivingEntity {
@@ -211,7 +211,7 @@ index 47e4f62d177c14ceffeb13a3fee5bfa342da7184..bcbce83f9e304809fb946f80c9dd32c4
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/monster/Phantom.java b/src/main/java/net/minecraft/world/entity/monster/Phantom.java
-index f7689ba01ec6d7f3483be831026e0c5f995459e9..836ca1a47524088c78c6c72a9479c7ffabfbee10 100644
+index 6b7baf977972b624c5745820d5c3a4375c6854b0..f032a45969d6835a36e2c7598425bc09a850fa58 100644
 --- a/src/main/java/net/minecraft/world/entity/monster/Phantom.java
 +++ b/src/main/java/net/minecraft/world/entity/monster/Phantom.java
 @@ -60,6 +60,7 @@ public class Phantom extends FlyingMob implements Enemy {
@@ -351,7 +351,7 @@ index cfecf0322ea22b42fa83bafe3cd2f5d74f0d1311..da2f736bd162a1e2e39473a963ef20bc
          // Paper end
  
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java
-index 7bca861c3ebfc7550b82ae74483464b11f8d6b55..b6e0d832a5685fd6105c5307015d58a2d7900221 100644
+index fbddb90fdbaa99c5f243b6e93c55fc1f7430e337..403085673b87291799538f4f3aad2dfe65b35660 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftEntity.java
 @@ -205,6 +205,11 @@ public abstract class CraftEntity implements org.bukkit.entity.Entity {
@@ -367,10 +367,10 @@ index 7bca861c3ebfc7550b82ae74483464b11f8d6b55..b6e0d832a5685fd6105c5307015d58a2
          /*
           * Order is *EXTREMELY* important -- keep it right! =D
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-index b211a2398aefe30ce1f344df11585ce78dcfc390..9076717d7c517b9cb349bcf044b5bfa355267585 100644
+index c5c718c30418f682826f83d6a254e926684d660d..c4ef5b291cec71279d58ba50ff29956857aabd33 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftLivingEntity.java
-@@ -995,5 +995,15 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
+@@ -1001,5 +1001,15 @@ public class CraftLivingEntity extends CraftEntity implements LivingEntity {
          if (slot == null) return;
          getHandle().broadcastBreakEvent(org.bukkit.craftbukkit.CraftEquipmentSlot.getNMS(slot));
      }

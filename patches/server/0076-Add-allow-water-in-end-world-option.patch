@@ -5,19 +5,19 @@ Subject: [PATCH] Add allow water in end world option
 
 
 diff --git a/src/main/java/net/minecraft/world/item/BucketItem.java b/src/main/java/net/minecraft/world/item/BucketItem.java
-index 73f1211470d9626c82c8345037da19aed9db3f23..40c7bf266eccc43faa081ade9402bee5ed886219 100644
+index 5c6aa9c464784ad5ee366412d080c72d3d22a76f..c03abc9589bf5f37abc1b0d355ed9784bac31a93 100644
 --- a/src/main/java/net/minecraft/world/item/BucketItem.java
 +++ b/src/main/java/net/minecraft/world/item/BucketItem.java
-@@ -167,7 +167,7 @@ public class BucketItem extends Item implements DispensibleContainerItem {
+@@ -166,7 +166,7 @@ public class BucketItem extends Item implements DispensibleContainerItem {
              // CraftBukkit end
              if (!flag1) {
-                 return movingobjectpositionblock != null && this.emptyContents(entityhuman, world, movingobjectpositionblock.getBlockPos().relative(movingobjectpositionblock.getDirection()), (BlockHitResult) null, enumdirection, clicked, itemstack, enumhand); // CraftBukkit // Paper
+                 return movingobjectpositionblock != null && this.emptyContents(entityhuman, world, movingobjectpositionblock.getBlockPos().relative(movingobjectpositionblock.getDirection()), (BlockHitResult) null, enumdirection, clicked, itemstack, enumhand); // CraftBukkit
 -            } else if (world.dimensionType().ultraWarm() && this.content.is(FluidTags.WATER)) {
-+            } else if ((world.isNether() || (world.isTheEnd() && !org.purpurmc.purpur.PurpurConfig.allowWaterPlacementInTheEnd)) && this.content.is(FluidTags.WATER)) { // Purpur
++            } else if ((world.dimensionType().ultraWarm() || (world.isTheEnd() && !org.purpurmc.purpur.PurpurConfig.allowWaterPlacementInTheEnd)) && this.content.is(FluidTags.WATER)) { // Purpur
                  int i = blockposition.getX();
                  int j = blockposition.getY();
                  int k = blockposition.getZ();
-@@ -175,7 +175,7 @@ public class BucketItem extends Item implements DispensibleContainerItem {
+@@ -174,7 +174,7 @@ public class BucketItem extends Item implements DispensibleContainerItem {
                  world.playSound(entityhuman, blockposition, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
  
                  for (int l = 0; l < 8; ++l) {
@@ -27,10 +27,10 @@ index 73f1211470d9626c82c8345037da19aed9db3f23..40c7bf266eccc43faa081ade9402bee5
  
                  return true;
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index 544f7ff70486c31e9caddf574265a42c07af3166..67c06003c5f6659409baef7157cceba5a98ac1c2 100644
+index 0c397d4c1efc7a812ecc02119b9740cbac303a04..dedba0c0da7cd56e94e3e9306178c28a43de01b0 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
-@@ -1571,4 +1571,14 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
+@@ -1570,4 +1570,14 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
          return null;
      }
      // Paper end
@@ -68,10 +68,10 @@ index 0afadbc8515d448b0ef817f4f0f53b1bb0abde43..c9daa26ab987249f390c64c9e26cd9ce
          } else {
              world.setBlockAndUpdate(pos, Blocks.WATER.defaultBlockState());
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index 8514b53b94893c576fa814af58c756e16cf5c730..e3ad7c379e62c3b77c4e43f59ff8747044438b78 100644
+index a9f26ac2a605e2abc00378c4620c789a5878b8d1..6e13d4d3d56f6da9b752bce9ac008eda639ac510 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -237,6 +237,11 @@ public class PurpurConfig {
+@@ -242,6 +242,11 @@ public class PurpurConfig {
          enderChestPermissionRows = getBoolean("settings.blocks.ender_chest.use-permissions-for-rows", enderChestPermissionRows);
      }
  

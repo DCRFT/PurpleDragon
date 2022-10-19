@@ -18,10 +18,10 @@ index e0998215841e500e5982a242e9f4e646402e1521..11038ba560439dab04c54c31a32d63be
  
      @Override
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 07c6a2deac19f7edf25258337981f1e74702b2a9..17f01ba3a6d824ea5ab2d6ec445ce17ab85aad87 100644
+index 8bf1e1a51794374a9c7cc7bb29a8a790aa8753bc..da5fef5c29c9c2c0cad67ea6868266c1417ca067 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -967,6 +967,11 @@ public class PurpurWorldConfig {
+@@ -957,6 +957,11 @@ public class PurpurWorldConfig {
          fixSandDuping = getBoolean("blocks.sand.fix-duping", fixSandDuping);
      }
  

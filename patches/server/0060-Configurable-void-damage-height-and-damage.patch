@@ -5,7 +5,7 @@ Subject: [PATCH] Configurable void damage height and damage
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index ec422c3c233454280132b0364b66d802fb32c006..5af14bd15b134b87f2b8afc35b00f8798d1e8486 100644
+index a21c743d3c5d200346e9a7d93554264dbda6783c..555702ee03b0032f1cced2e63685b6a447216b57 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -890,7 +890,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
@@ -14,14 +14,14 @@ index ec422c3c233454280132b0364b66d802fb32c006..5af14bd15b134b87f2b8afc35b00f879
          // Paper start - Configurable nether ceiling damage
 -        if (this.getY() < (double) (this.level.getMinBuildHeight() - 64) || (this.level.getWorld().getEnvironment() == org.bukkit.World.Environment.NETHER
 +        if (this.getY() < (double) (this.level.getMinBuildHeight() + level.purpurConfig.voidDamageHeight) || (this.level.getWorld().getEnvironment() == org.bukkit.World.Environment.NETHER // Purpur
-             && level.paperConfig().environment.netherCeilingVoidDamageHeight > 0
-             && this.getY() >= this.level.paperConfig().environment.netherCeilingVoidDamageHeight)) {
+             && this.level.paperConfig().environment.netherCeilingVoidDamageHeight.test(v -> this.getY() >= v)
+             && (!(this instanceof Player player) || !player.getAbilities().invulnerable))) {
              // Paper end
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index fe6483d505f9148f82f80abc1438945ed0741ba3..cf67b497d1a0e56fa949802804d6d2cf855d52ff 100644
+index 29d33251d0b712b141c2ed8c78d0913b7b924c3c..1f0f31269fa21348cd8617a8e2d098dc2a8d0f85 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-@@ -2488,7 +2488,7 @@ public abstract class LivingEntity extends Entity {
+@@ -2491,7 +2491,7 @@ public abstract class LivingEntity extends Entity {
  
      @Override
      protected void outOfWorld() {
@@ -31,10 +31,10 @@ index fe6483d505f9148f82f80abc1438945ed0741ba3..cf67b497d1a0e56fa949802804d6d2cf
  
      protected void updateSwingTime() {
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 56f590e38064ac9ab8b2ded728f238f40f1418e6..016c5bdcc9a90eb4dbe1c088ec2ca247ee1ab7a8 100644
+index 9cf7278f13ac13a2cb1451a4dc72878418b7369d..44f57a4098d862b8f7930d9af0abbc4a0b02ec3b 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -100,10 +100,14 @@ public class PurpurWorldConfig {
+@@ -101,10 +101,14 @@ public class PurpurWorldConfig {
      public boolean disableDropsOnCrammingDeath = false;
      public boolean milkCuresBadOmen = true;
      public double tridentLoyaltyVoidReturnHeight = 0.0D;

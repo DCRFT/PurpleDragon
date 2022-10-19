@@ -4,11 +4,33 @@ Date: Sun, 12 Jun 2022 09:18:57 -0500
 Subject: [PATCH] Fix pufferfish issues
 
 
+diff --git a/src/main/java/gg/pufferfish/pufferfish/PufferfishConfig.java b/src/main/java/gg/pufferfish/pufferfish/PufferfishConfig.java
+index ed9c8e882739c02d0d04129d251e4c726b422c07..5426e57ed67b0d144818a7e3b917c90d45f548ce 100644
+--- a/src/main/java/gg/pufferfish/pufferfish/PufferfishConfig.java
++++ b/src/main/java/gg/pufferfish/pufferfish/PufferfishConfig.java
+@@ -222,7 +222,7 @@ public class PufferfishConfig {
+     public static int activationDistanceMod;
+ 
+     private static void dynamicActivationOfBrains() throws IOException {
+-        dearEnabled = getBoolean("dab.enabled", "activation-range.enabled", true);
++        dearEnabled = getBoolean("dab.enabled", "activation-range.enabled", false); // Purpur
+         startDistance = getInt("dab.start-distance", "activation-range.start-distance", 12,
+                 "This value determines how far away an entity has to be",
+                 "from the player to start being effected by DEAR.");
+@@ -266,7 +266,7 @@ public class PufferfishConfig {
+     
+     public static boolean throttleInactiveGoalSelectorTick;
+ 	private static void inactiveGoalSelectorThrottle() {
+-		getBoolean("inactive-goal-selector-throttle", "inactive-goal-selector-disable", true,
++		getBoolean("inactive-goal-selector-throttle", "inactive-goal-selector-disable", false, // Purpur
+ 				"Throttles the AI goal selector in entity inactive ticks.",
+ 				"This can improve performance by a few percent, but has minor gameplay implications.");
+ 	}
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index 8ed9f14f1ca71111a8215b28821bd5e398c0d0a6..42c88ef31474690c95f7cfe7c3075e1f854c4005 100644
+index 917cf327f3f9d824ec0da70fd9204624e7cf96fb..253f2e64f7d287057170ed50180e92d644a11f76 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -775,7 +775,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -805,7 +805,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
      }
      // Paper start - optimise random block ticking
      private final BlockPos.MutableBlockPos chunkTickMutablePosition = new BlockPos.MutableBlockPos();
@@ -18,7 +40,7 @@ index 8ed9f14f1ca71111a8215b28821bd5e398c0d0a6..42c88ef31474690c95f7cfe7c3075e1f
  
      private int currentIceAndSnowTick = 0; protected void resetIceAndSnowTick() { this.currentIceAndSnowTick = this.randomTickRandom.nextInt(16); } // Pufferfish
 diff --git a/src/main/java/net/minecraft/world/level/Level.java b/src/main/java/net/minecraft/world/level/Level.java
-index 0681a7499755b573c191804b38ac8783eb7d0f32..b6f5d2aa4c6edb61421a553211ce71592d8c767a 100644
+index 0277633fd328ef9993fea4ac29df83b5b00c0f42..35d6a8fe168caa5b68b471bd78cc95b99758d1b0 100644
 --- a/src/main/java/net/minecraft/world/level/Level.java
 +++ b/src/main/java/net/minecraft/world/level/Level.java
 @@ -271,7 +271,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable {
@@ -31,10 +53,10 @@ index 0681a7499755b573c191804b38ac8783eb7d0f32..b6f5d2aa4c6edb61421a553211ce7159
      // Pufferfish start - ensure these get inlined
      private final int minBuildHeight, minSection, height, maxBuildHeight, maxSection;
 diff --git a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-index 0b08a91ae9dc73c011dbb5f517becac7d08fd1e9..6fbf26eb7da8df2f0a4158ff9f12022518ada8e3 100644
+index 34334c139176e0aa9f6d93a87821508d17567cfc..df2786516fe641edff7bbe9fe0665bf07502d830 100644
 --- a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -136,7 +136,7 @@ public class LevelChunk extends ChunkAccess {
+@@ -130,7 +130,7 @@ public class LevelChunk extends ChunkAccess {
          this.fluidTicks = fluidTickScheduler;
          // CraftBukkit start
          this.bukkitChunk = new org.bukkit.craftbukkit.CraftChunk(this);

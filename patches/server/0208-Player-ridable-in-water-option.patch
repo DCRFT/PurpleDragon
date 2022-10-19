@@ -5,7 +5,7 @@ Subject: [PATCH] Player ridable in water option
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index 281b7534a3f455b57cfe36c6d844f58c2efefd16..45e634589ae1bd83de281bacbe2024531d0351fb 100644
+index a53b828a23de5cd008504441d1506b29d03261eb..68dc6a007021f8c97530c1d1c4f92cbb7f573661 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
 @@ -2095,6 +2095,11 @@ public abstract class Player extends LivingEntity {
@@ -21,10 +21,10 @@ index 281b7534a3f455b57cfe36c6d844f58c2efefd16..45e634589ae1bd83de281bacbe202453
          if (!this.isPassenger() && this.onGround && !this.isInWater() && !this.isInPowderSnow) {
              if (this.getShoulderEntityLeft().isEmpty()) {
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index dc4996d7ee6ffc2c3c7567472b9cf622e39bb5b9..d97c25cbb32e2da125e881b180f3b32a5a6ac98f 100644
+index 3a29ae68b15005fdec1e1e5889e2dec1354b8844..fa6cbac5936296336a53772f9d655b0b6fbbf2f4 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -395,6 +395,7 @@ public class PurpurWorldConfig {
+@@ -397,6 +397,7 @@ public class PurpurWorldConfig {
      public boolean playerBurpWhenFull = false;
      public boolean playerArmorSwapping = false;
      public boolean playerArmorSwappingCreativeMakesCopy = true;
@@ -32,7 +32,7 @@ index dc4996d7ee6ffc2c3c7567472b9cf622e39bb5b9..d97c25cbb32e2da125e881b180f3b32a
      private void playerSettings() {
          if (PurpurConfig.version < 19) {
              boolean oldVal = getBoolean("gameplay-mechanics.player.idle-timeout.mods-target", idleTimeoutTargetPlayer);
-@@ -420,6 +421,7 @@ public class PurpurWorldConfig {
+@@ -423,6 +424,7 @@ public class PurpurWorldConfig {
          playerBurpWhenFull = getBoolean("gameplay-mechanics.player.burp-when-full", playerBurpWhenFull);
          playerArmorSwapping = getBoolean("gameplay-mechanics.player.armor-click-equip.allow-hot-swapping", playerArmorSwapping);
          playerArmorSwappingCreativeMakesCopy = getBoolean("gameplay-mechanics.player.armor-click-equip.creative-makes-copy", playerArmorSwappingCreativeMakesCopy);

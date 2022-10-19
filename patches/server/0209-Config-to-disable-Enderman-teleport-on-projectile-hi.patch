@@ -5,7 +5,7 @@ Subject: [PATCH] Config to disable Enderman teleport on projectile hit
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/monster/EnderMan.java b/src/main/java/net/minecraft/world/entity/monster/EnderMan.java
-index b0c4c90ab2d532a60911d53ac4764dcf49fff6c8..372400d5ce38407b577e5ee403ce39fc60b399e4 100644
+index 6c1de46576c3cb65526de48400d268695ca53024..a8367e8086fb1c075102f414a5c30ccb49be0720 100644
 --- a/src/main/java/net/minecraft/world/entity/monster/EnderMan.java
 +++ b/src/main/java/net/minecraft/world/entity/monster/EnderMan.java
 @@ -414,7 +414,7 @@ public class EnderMan extends Monster implements NeutralMob {
@@ -18,10 +18,10 @@ index b0c4c90ab2d532a60911d53ac4764dcf49fff6c8..372400d5ce38407b577e5ee403ce39fc
              boolean flag;
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index d97c25cbb32e2da125e881b180f3b32a5a6ac98f..90c70d233327615004fc22cde6b9d71660bb0a5b 100644
+index fa6cbac5936296336a53772f9d655b0b6fbbf2f4..0fe874bb1eb3bd3eb644602416153b39a5dd5c0c 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -1303,6 +1303,7 @@ public class PurpurWorldConfig {
+@@ -1308,6 +1308,7 @@ public class PurpurWorldConfig {
      public boolean endermanAggroEndermitesOnlyIfPlayerSpawned = false;
      public boolean endermanIgnorePlayerDragonHead = false;
      public boolean endermanDisableStareAggro = false;
@@ -29,7 +29,7 @@ index d97c25cbb32e2da125e881b180f3b32a5a6ac98f..90c70d233327615004fc22cde6b9d716
      private void endermanSettings() {
          endermanRidable = getBoolean("mobs.enderman.ridable", endermanRidable);
          endermanRidableInWater = getBoolean("mobs.enderman.ridable-in-water", endermanRidableInWater);
-@@ -1325,6 +1326,7 @@ public class PurpurWorldConfig {
+@@ -1330,6 +1331,7 @@ public class PurpurWorldConfig {
          endermanAggroEndermitesOnlyIfPlayerSpawned = getBoolean("mobs.enderman.aggressive-towards-endermites-only-spawned-by-player-thrown-ender-pearls", endermanAggroEndermitesOnlyIfPlayerSpawned);
          endermanIgnorePlayerDragonHead = getBoolean("mobs.enderman.ignore-players-wearing-dragon-head", endermanIgnorePlayerDragonHead);
          endermanDisableStareAggro = getBoolean("mobs.enderman.disable-player-stare-aggression", endermanDisableStareAggro);

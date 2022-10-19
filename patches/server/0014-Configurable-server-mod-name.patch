@@ -5,10 +5,10 @@ Subject: [PATCH] Configurable server mod name
 
 
 diff --git a/src/main/java/net/minecraft/server/MinecraftServer.java b/src/main/java/net/minecraft/server/MinecraftServer.java
-index 50d077470a3a606b97ea4ae499837de654ecb984..28550587d7b3f3fd48b2ebaaafd8ed847a86082f 100644
+index 7f0551e70c545f8e77d18b11e836233faeba9161..ffa6466c21ddc6a312a0a3aa400717a481400237 100644
 --- a/src/main/java/net/minecraft/server/MinecraftServer.java
 +++ b/src/main/java/net/minecraft/server/MinecraftServer.java
-@@ -1676,7 +1676,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1657,7 +1657,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
  
      @DontObfuscate
      public String getServerModName() {
@@ -18,10 +18,10 @@ index 50d077470a3a606b97ea4ae499837de654ecb984..28550587d7b3f3fd48b2ebaaafd8ed84
  
      public SystemReport fillSystemReport(SystemReport details) {
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index cf7925c5631815a53926543b79179c58e923402e..290c1ac6e1e7bd485a6c63492d4f72b55af7b46b 100644
+index c55c434263e0b85fa75c23e943c3bfbc2e836c6c..28b122a4c91ffa509359fd14eb2d232769bbdfd1 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -181,6 +181,11 @@ public class PurpurConfig {
+@@ -186,6 +186,11 @@ public class PurpurConfig {
          afkTabListSuffix = getString("settings.messages.afk-tab-list-suffix", afkTabListSuffix);
      }
  

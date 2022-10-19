@@ -5,13 +5,13 @@ Subject: [PATCH] Add option to teleport to spawn if outside world border
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index de96a37827fd31f3189e18298e2f9e1370761a30..0d30b21ec070980b290f23d5becfc61183214146 100644
+index 80598d109eba14f719c4c8190d93d4a9febb9248..0d94b1e5ec66713c38e1f524be42bbfaa398dfde 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -2583,4 +2583,26 @@ public class ServerPlayer extends Player {
+@@ -2586,4 +2586,26 @@ public class ServerPlayer extends Player {
+         return (CraftPlayer) super.getBukkitEntity();
+     }
      // CraftBukkit end
- 
-     public final int getViewDistance() { throw new UnsupportedOperationException("Use PlayerChunkLoader"); } // Paper - placeholder
 +
 +    // Purpur start
 +    public void teleport(Location to) {
@@ -36,7 +36,7 @@ index de96a37827fd31f3189e18298e2f9e1370761a30..0d30b21ec070980b290f23d5becfc611
 +    // Purpur end
  }
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index ae8b34336a2e9e58c79eb1435ed7520dd180f302..c9dd775e01da040ac6c97c0ee0147828f1cc7fdd 100644
+index 8401577ee010c211c99c174bc70536d606a09b1d..500b702e2d2b6ba4df07d1fb3e85d632feece76c 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
 @@ -44,6 +44,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
@@ -56,10 +56,10 @@ index ae8b34336a2e9e58c79eb1435ed7520dd180f302..c9dd775e01da040ac6c97c0ee0147828
                      }
                  }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 74bdd1a79dd3a911d3d4fb4b7a31454f64aa274a..68d87cd69a830a4b5e15b31a43ab0a80f07fe7cc 100644
+index 0f33736b1daf1d5721cd08abd66c70a9690124b6..be33d4c0c00804547da3f0aa56b52014343dd804 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -246,6 +246,7 @@ public class PurpurWorldConfig {
+@@ -247,6 +247,7 @@ public class PurpurWorldConfig {
      public boolean playerInvulnerableWhileAcceptingResourcePack = false;
      public String playerDeathExpDropEquation = "expLevel * 7";
      public int playerDeathExpDropMax = 100;
@@ -67,7 +67,7 @@ index 74bdd1a79dd3a911d3d4fb4b7a31454f64aa274a..68d87cd69a830a4b5e15b31a43ab0a80
      private void playerSettings() {
          if (PurpurConfig.version < 19) {
              boolean oldVal = getBoolean("gameplay-mechanics.player.idle-timeout.mods-target", idleTimeoutTargetPlayer);
-@@ -261,6 +262,7 @@ public class PurpurWorldConfig {
+@@ -262,6 +263,7 @@ public class PurpurWorldConfig {
          playerInvulnerableWhileAcceptingResourcePack = getBoolean("gameplay-mechanics.player.invulnerable-while-accepting-resource-pack", playerInvulnerableWhileAcceptingResourcePack);
          playerDeathExpDropEquation = getString("gameplay-mechanics.player.exp-dropped-on-death.equation", playerDeathExpDropEquation);
          playerDeathExpDropMax = getInt("gameplay-mechanics.player.exp-dropped-on-death.maximum", playerDeathExpDropMax);

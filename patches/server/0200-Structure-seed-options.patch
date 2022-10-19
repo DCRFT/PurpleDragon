@@ -5,10 +5,10 @@ Subject: [PATCH] Structure seed options
 
 
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index ec1e02ece9e15860fbf1321d932829a4a4dd8e1a..ea6e701d5c76ec53faca03fe2891af9eeadefbf8 100644
+index dfdbbb133b427cf005e76a28f85b041ee930a98c..637a8ff846f0a90bee9789937ff21700af48a79b 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -212,6 +212,23 @@ public class PurpurConfig {
+@@ -217,6 +217,23 @@ public class PurpurConfig {
          deathMessageOnlyBroadcastToAffectedPlayer = getBoolean("settings.broadcasts.death.only-broadcast-to-affected-player", deathMessageOnlyBroadcastToAffectedPlayer);
      }
  

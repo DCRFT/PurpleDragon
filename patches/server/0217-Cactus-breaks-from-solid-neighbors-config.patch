@@ -18,10 +18,10 @@ index 0fbabb84ef13e68b12212d9bfeb885c78893c116..56fa0e377b20ed063e47358be9e6bba8
          return false;
      }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 504487696324b53cebdb10e635c9f7aae733c028..5326ffafa9ef7568f01840cb14c7c13d7965175c 100644
+index e53a2c18b68d02f7eeb764198d074e639ec0bfa0..3bdf9d310c3ddf68689adb8e037a4d85fe134248 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -741,6 +741,11 @@ public class PurpurWorldConfig {
+@@ -746,6 +746,11 @@ public class PurpurWorldConfig {
          buddingAmethystSilkTouch = getBoolean("blocks.budding_amethyst.silk-touch", buddingAmethystSilkTouch);
      }
  

@@ -5,7 +5,7 @@ Subject: [PATCH] Entities can use portals configuration
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index edfea0b848d988f44a6eb6628dea8887098c94f6..2ea49b50189e4bc2abfe791bc17e7ea5d9c9e56f 100644
+index 0a263c0d15611bcba46fec13a2ce2d32ee260d79..8e5087ca2df8ca26f3cbfeacdb33d846628ca658 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -2892,7 +2892,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
@@ -27,10 +27,10 @@ index edfea0b848d988f44a6eb6628dea8887098c94f6..2ea49b50189e4bc2abfe791bc17e7ea5
  
      public float getBlockExplosionResistance(Explosion explosion, BlockGetter world, BlockPos pos, BlockState blockState, FluidState fluidState, float max) {
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 6d432e258fa51843d9833cdd771814e2fd5cf7eb..21369e002d0dd780b4326d577cba26211d7376b3 100644
+index 022d8c904ce5df6c0b1906c99770aa17344bd351..3f3dc194f2b11a4fddab9b178db248e8154f693d 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -100,6 +100,7 @@ public class PurpurWorldConfig {
+@@ -101,6 +101,7 @@ public class PurpurWorldConfig {
      public boolean useBetterMending = false;
      public boolean boatEjectPlayersOnLand = false;
      public boolean disableDropsOnCrammingDeath = false;
@@ -38,7 +38,7 @@ index 6d432e258fa51843d9833cdd771814e2fd5cf7eb..21369e002d0dd780b4326d577cba2621
      public boolean milkCuresBadOmen = true;
      public double tridentLoyaltyVoidReturnHeight = 0.0D;
      public double voidDamageHeight = -64.0D;
-@@ -108,6 +109,7 @@ public class PurpurWorldConfig {
+@@ -109,6 +110,7 @@ public class PurpurWorldConfig {
          useBetterMending = getBoolean("gameplay-mechanics.use-better-mending", useBetterMending);
          boatEjectPlayersOnLand = getBoolean("gameplay-mechanics.boat.eject-players-on-land", boatEjectPlayersOnLand);
          disableDropsOnCrammingDeath = getBoolean("gameplay-mechanics.disable-drops-on-cramming-death", disableDropsOnCrammingDeath);

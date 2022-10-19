@@ -5,10 +5,10 @@ Subject: [PATCH] Tool actionable options
 
 
 diff --git a/src/main/java/net/minecraft/world/item/AxeItem.java b/src/main/java/net/minecraft/world/item/AxeItem.java
-index 9c49d8f696864d2aad23208422c4ab5b598a0cd9..22c8ef3d8d20c14d3b032d054827e074a4422ad6 100644
+index 9c49d8f696864d2aad23208422c4ab5b598a0cd9..7738735c2d3847f048b9bdffaa2b3eff0b5b0940 100644
 --- a/src/main/java/net/minecraft/world/item/AxeItem.java
 +++ b/src/main/java/net/minecraft/world/item/AxeItem.java
-@@ -33,29 +33,31 @@ public class AxeItem extends DiggerItem {
+@@ -33,29 +33,32 @@ public class AxeItem extends DiggerItem {
          BlockPos blockPos = context.getClickedPos();
          Player player = context.getPlayer();
          BlockState blockState = level.getBlockState(blockPos);
@@ -18,6 +18,7 @@ index 9c49d8f696864d2aad23208422c4ab5b598a0cd9..22c8ef3d8d20c14d3b032d054827e074
 -            return block.withPropertiesOf(blockState);
 -        });
 +        // Purpur start
++        Block clickedBlock = level.getBlockState(blockPos).getBlock();
 +        Optional<org.purpurmc.purpur.tool.Actionable> optional = Optional.ofNullable(level.purpurConfig.axeStrippables.get(blockState.getBlock()));
 +        Optional<org.purpurmc.purpur.tool.Actionable> optional2 = Optional.ofNullable(level.purpurConfig.axeWeatherables.get(blockState.getBlock()));
 +        Optional<org.purpurmc.purpur.tool.Actionable> optional3 = Optional.ofNullable(level.purpurConfig.axeWaxables.get(blockState.getBlock()));
@@ -27,16 +28,16 @@ index 9c49d8f696864d2aad23208422c4ab5b598a0cd9..22c8ef3d8d20c14d3b032d054827e074
 +        Optional<org.purpurmc.purpur.tool.Actionable> optional4 = Optional.empty(); // Purpur
          if (optional.isPresent()) {
 -            level.playSound(player, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-+            level.playSound(null, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
++            if (!STRIPPABLES.containsKey(clickedBlock)) level.playSound(null, blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
              optional4 = optional;
          } else if (optional2.isPresent()) {
 -            level.playSound(player, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-+            level.playSound(null, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
++            if (!HoneycombItem.WAXABLES.get().containsKey(clickedBlock)) level.playSound(null, blockPos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
              level.levelEvent(player, 3005, blockPos, 0);
              optional4 = optional2;
          } else if (optional3.isPresent()) {
 -            level.playSound(player, blockPos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-+            level.playSound(null, blockPos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
++            if (!HoneycombItem.WAX_OFF_BY_BLOCK.get().containsKey(clickedBlock)) level.playSound(null, blockPos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
              level.levelEvent(player, 3004, blockPos, 0);
              optional4 = optional3;
          }
@@ -50,7 +51,7 @@ index 9c49d8f696864d2aad23208422c4ab5b598a0cd9..22c8ef3d8d20c14d3b032d054827e074
                  return InteractionResult.PASS;
              }
              // Paper end
-@@ -63,15 +65,22 @@ public class AxeItem extends DiggerItem {
+@@ -63,15 +66,22 @@ public class AxeItem extends DiggerItem {
                  CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, blockPos, itemStack);
              }
  
@@ -77,10 +78,10 @@ index 9c49d8f696864d2aad23208422c4ab5b598a0cd9..22c8ef3d8d20c14d3b032d054827e074
              return InteractionResult.PASS;
          }
 diff --git a/src/main/java/net/minecraft/world/item/HoeItem.java b/src/main/java/net/minecraft/world/item/HoeItem.java
-index 180aec596110309aade13d2080f8824d152b07cb..bf0e1f481b4c81f0663366bbe597b066f95a6200 100644
+index 180aec596110309aade13d2080f8824d152b07cb..c4aec1e5135a79837918b692e75a7b55d5cffeb0 100644
 --- a/src/main/java/net/minecraft/world/item/HoeItem.java
 +++ b/src/main/java/net/minecraft/world/item/HoeItem.java
-@@ -34,15 +34,22 @@ public class HoeItem extends DiggerItem {
+@@ -34,15 +34,23 @@ public class HoeItem extends DiggerItem {
      public InteractionResult useOn(UseOnContext context) {
          Level level = context.getLevel();
          BlockPos blockPos = context.getClickedPos();
@@ -91,6 +92,7 @@ index 180aec596110309aade13d2080f8824d152b07cb..bf0e1f481b4c81f0663366bbe597b066
 -            Predicate<UseOnContext> predicate = pair.getFirst();
 -            Consumer<UseOnContext> consumer = pair.getSecond();
 +        // Purpur start
++        Block clickedBlock = level.getBlockState(blockPos).getBlock();
 +        var tillable = level.purpurConfig.hoeTillables.get(level.getBlockState(blockPos).getBlock());
 +        if (tillable == null) { return InteractionResult.PASS; } else {
 +            Predicate<UseOnContext> predicate = tillable.condition().predicate();
@@ -106,11 +108,11 @@ index 180aec596110309aade13d2080f8824d152b07cb..bf0e1f481b4c81f0663366bbe597b066
              if (predicate.test(context)) {
                  Player player = context.getPlayer();
 -                level.playSound(player, blockPos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-+                level.playSound(null, blockPos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
++                if (!TILLABLES.containsKey(clickedBlock)) level.playSound(null, blockPos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F); // Purpur - force sound
                  if (!level.isClientSide) {
                      consumer.accept(context);
                      if (player != null) {
-@@ -52,7 +59,7 @@ public class HoeItem extends DiggerItem {
+@@ -52,7 +60,7 @@ public class HoeItem extends DiggerItem {
                      }
                  }
  
@@ -120,10 +122,10 @@ index 180aec596110309aade13d2080f8824d152b07cb..bf0e1f481b4c81f0663366bbe597b066
                  return InteractionResult.PASS;
              }
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 500a7eeb3532ee5c25ac5f7a14b2ff25c7a83cff..2f28c8eb9eb68bb44f245437c06388d8686e6572 100644
+index a838a433646c7ba01e5861978319d85287441b78..fecd5ca0563c9195b5ca69872b66f90fec80d43d 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -522,6 +522,159 @@ public class PurpurWorldConfig {
+@@ -525,6 +525,159 @@ public class PurpurWorldConfig {
          });
      }
  
@@ -281,8 +283,8 @@ index 500a7eeb3532ee5c25ac5f7a14b2ff25c7a83cff..2f28c8eb9eb68bb44f245437c06388d8
 +    }
 +
      public boolean anvilAllowColors = false;
+     public boolean anvilColorsUseMiniMessage;
      private void anvilSettings() {
-         anvilAllowColors = getBoolean("blocks.anvil.allow-colors", anvilAllowColors);
 diff --git a/src/main/java/org/purpurmc/purpur/tool/Actionable.java b/src/main/java/org/purpurmc/purpur/tool/Actionable.java
 new file mode 100644
 index 0000000000000000000000000000000000000000..e18c37f06730da9d3055d5215e813b1477c1e70e
@@ -333,7 +335,7 @@ index 0000000000000000000000000000000000000000..bf5402214f41af9c09bd6c5c4f45d330
 +}
 diff --git a/src/main/java/org/purpurmc/purpur/tool/Tillable.java b/src/main/java/org/purpurmc/purpur/tool/Tillable.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..e95412e3aeb57717ee4db03c66ae8001aea342af
+index 0000000000000000000000000000000000000000..715f6dd44480347eebced43c11bc364e05727498
 --- /dev/null
 +++ b/src/main/java/org/purpurmc/purpur/tool/Tillable.java
 @@ -0,0 +1,50 @@
@@ -383,7 +385,7 @@ index 0000000000000000000000000000000000000000..e95412e3aeb57717ee4db03c66ae8001
 +        }
 +
 +        public static Condition get(String name) {
-+            return BY_NAME.get(name.toUpperCase());
++            return BY_NAME.get(name.toUpperCase(java.util.Locale.ROOT));
 +        }
 +    }
 +}

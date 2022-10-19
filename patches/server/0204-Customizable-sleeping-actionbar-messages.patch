@@ -5,10 +5,10 @@ Subject: [PATCH] Customizable sleeping actionbar messages
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index cf89dde659141a2a78e9b2d2b007b4c54db4b1ed..4b55a46033089e27462b7a8d87cc5631cbcee6a6 100644
+index a7820becea1e46154975f4cd7b8e8d24f9f0e4ad..66ab18b0654b1408fae1a5948290d44dd888b4b4 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -990,11 +990,27 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -1020,11 +1020,27 @@ public class ServerLevel extends Level implements WorldGenLevel {
          if (this.canSleepThroughNights()) {
              if (!this.getServer().isSingleplayer() || this.getServer().isPublished()) {
                  int i = this.getGameRules().getInt(GameRules.RULE_PLAYERS_SLEEPING_PERCENTAGE);
@@ -38,10 +38,10 @@ index cf89dde659141a2a78e9b2d2b007b4c54db4b1ed..4b55a46033089e27462b7a8d87cc5631
                  }
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index ea6e701d5c76ec53faca03fe2891af9eeadefbf8..c1b7b01c7588cffed238143617dcf2f48a0b241a 100644
+index 637a8ff846f0a90bee9789937ff21700af48a79b..695e6376fcf3306be49e593126576c1773b5792e 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -180,6 +180,8 @@ public class PurpurConfig {
+@@ -185,6 +185,8 @@ public class PurpurConfig {
      public static String dontRunWithScissors = "<red><italic>Don't run with scissors!";
      public static String uptimeCommandOutput = "<green>Server uptime is <uptime>";
      public static String unverifiedUsername = "default";
@@ -50,7 +50,7 @@ index ea6e701d5c76ec53faca03fe2891af9eeadefbf8..c1b7b01c7588cffed238143617dcf2f4
      private static void messages() {
          cannotRideMob = getString("settings.messages.cannot-ride-mob", cannotRideMob);
          afkBroadcastAway = getString("settings.messages.afk-broadcast-away", afkBroadcastAway);
-@@ -193,6 +195,8 @@ public class PurpurConfig {
+@@ -198,6 +200,8 @@ public class PurpurConfig {
          dontRunWithScissors = getString("settings.messages.dont-run-with-scissors", dontRunWithScissors);
          uptimeCommandOutput = getString("settings.messages.uptime-command-output", uptimeCommandOutput);
          unverifiedUsername = getString("settings.messages.unverified-username", unverifiedUsername);

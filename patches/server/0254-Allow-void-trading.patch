@@ -5,10 +5,10 @@ Subject: [PATCH] Allow void trading
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerLevel.java b/src/main/java/net/minecraft/server/level/ServerLevel.java
-index 9d22e2acfcec99f7cf9e763c3a185479c970f552..0df97cf932f8bd315e3ae645368ae8df6c51fc25 100644
+index 74f221c74d478e7c24e101903398219be46ddea6..55fe8b0f21f00b02e78257a64fd8d63980d50995 100644
 --- a/src/main/java/net/minecraft/server/level/ServerLevel.java
 +++ b/src/main/java/net/minecraft/server/level/ServerLevel.java
-@@ -2679,7 +2679,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
+@@ -2698,7 +2698,7 @@ public class ServerLevel extends Level implements WorldGenLevel {
              // Spigot Start
              if (entity.getBukkitEntity() instanceof org.bukkit.inventory.InventoryHolder && (!(entity instanceof ServerPlayer) || entity.getRemovalReason() != Entity.RemovalReason.KILLED)) { // SPIGOT-6876: closeInventory clears death message
                  // Paper start
@@ -18,10 +18,10 @@ index 9d22e2acfcec99f7cf9e763c3a185479c970f552..0df97cf932f8bd315e3ae645368ae8df
                  }
                  // Paper end
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index 98c12d6cdabad4c37d535238c8df47509d5afa25..a9769af473aed648b9fe7505d19dd065ff1c5d64 100644
+index c4ffc47514f141353825f2e4b1db7647fa4520d4..235c264c0bb00e4fe4c9232c010453e31ff6dc79 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -422,6 +422,7 @@ public class PurpurWorldConfig {
+@@ -424,6 +424,7 @@ public class PurpurWorldConfig {
      public boolean playerRemoveBindingWithWeakness = false;
      public int shiftRightClickRepairsMendingPoints = 0;
      public int playerExpPickupDelay = 2;
@@ -29,7 +29,7 @@ index 98c12d6cdabad4c37d535238c8df47509d5afa25..a9769af473aed648b9fe7505d19dd065
      private void playerSettings() {
          if (PurpurConfig.version < 19) {
              boolean oldVal = getBoolean("gameplay-mechanics.player.idle-timeout.mods-target", idleTimeoutTargetPlayer);
-@@ -451,6 +452,7 @@ public class PurpurWorldConfig {
+@@ -454,6 +455,7 @@ public class PurpurWorldConfig {
          playerRemoveBindingWithWeakness = getBoolean("gameplay-mechanics.player.curse-of-binding.remove-with-weakness", playerRemoveBindingWithWeakness);
          shiftRightClickRepairsMendingPoints = getInt("gameplay-mechanics.player.shift-right-click-repairs-mending-points", shiftRightClickRepairsMendingPoints);
          playerExpPickupDelay = getInt("gameplay-mechanics.player.exp-pickup-delay-ticks", playerExpPickupDelay);

@@ -5,7 +5,7 @@ Subject: [PATCH] Add toggle for end portal safe teleporting
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 4e5b2704f22ac8e94c8ec3b7bfe1e755207eb8cb..a49cc52d5181c56159cbab14c5bec2d7e55c5396 100644
+index c44392af107fe4f5e3a77d69067f49cba2eee771..de68663faebbfc019025d83d70b825ed6a6b8f11 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -2948,7 +2948,7 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource {
@@ -45,10 +45,10 @@ index 04bae5085756842ce88710646a17e9dc1aad5994..e7658fa9806701505e15cbf1d28ea3bd
              entity.portalWorld = ((ServerLevel)world);
              entity.portalBlock = pos.immutable();
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-index c8832718ab8862218fb59ff883fffda24137f675..9789e3af3fe327046b70da504c6bc44d092ed6b0 100644
+index 6944ed93105adb3833f870c03b9bba89aa083f6f..ebf607069030efaa5dc8fe70187533f0aec4918e 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurWorldConfig.java
-@@ -633,6 +633,11 @@ public class PurpurWorldConfig {
+@@ -636,6 +636,11 @@ public class PurpurWorldConfig {
          furnaceUseLavaFromUnderneath = getBoolean("blocks.furnace.use-lava-from-underneath", furnaceUseLavaFromUnderneath);
      }
  

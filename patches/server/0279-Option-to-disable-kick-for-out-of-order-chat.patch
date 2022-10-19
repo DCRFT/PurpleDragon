@@ -5,10 +5,10 @@ Subject: [PATCH] Option to disable kick for out of order chat
 
 
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 628a3788c60c9644043ee78736e035707a9d4044..9519e11fef244eb1b286b43b857d3f41865784c4 100644
+index 25a5c9f6432a80705bf56d32519127aa6095531d..584744eed27dd3e7f20f4c6d88e931935ecc837b 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-@@ -2452,7 +2452,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Tic
+@@ -2453,7 +2453,7 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Tic
          do {
              instant1 = (Instant) this.lastChatTimeStamp.get();
              if (timestamp.isBefore(instant1)) {
@@ -18,10 +18,10 @@ index 628a3788c60c9644043ee78736e035707a9d4044..9519e11fef244eb1b286b43b857d3f41
          } while (!this.lastChatTimeStamp.compareAndSet(instant1, timestamp));
  
 diff --git a/src/main/java/org/purpurmc/purpur/PurpurConfig.java b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-index d0b4ea0212b6a5ccba029c124be1ca3ffafd5d26..d44b8ce90db7c6c27f71aa841d6fb64b159b7b42 100644
+index a0ea28386a12973fcff0c7c2462205ff9e451b35..d75604b369b44e493da22a5408530b644c6dc1d6 100644
 --- a/src/main/java/org/purpurmc/purpur/PurpurConfig.java
 +++ b/src/main/java/org/purpurmc/purpur/PurpurConfig.java
-@@ -447,9 +447,11 @@ public class PurpurConfig {
+@@ -480,9 +480,11 @@ public class PurpurConfig {
  
      public static boolean useUPnP = false;
      public static boolean maxJoinsPerSecond = false;
