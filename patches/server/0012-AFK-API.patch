@@ -5,10 +5,10 @@ Subject: [PATCH] AFK API
 
 
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 12e0308373684093736bd558606e5a46e159ca20..aa509809e88f85e28698bb22aed77169cbedfcf4 100644
+index 61b9dcda16ee454b102d8a76f3ea6986de7325c0..1dea5322a07e63f564d506c3255ebb4ee0066b37 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -2006,8 +2006,58 @@ public class ServerPlayer extends Player {
+@@ -2029,8 +2029,63 @@ public class ServerPlayer extends Player {
  
      public void resetLastActionTime() {
          this.lastActionTime = Util.getMillis();
@@ -26,7 +26,7 @@ index 12e0308373684093736bd558606e5a46e159ca20..aa509809e88f85e28698bb22aed77169
 +
 +        String msg = afk ? org.purpurmc.purpur.PurpurConfig.afkBroadcastAway : org.purpurmc.purpur.PurpurConfig.afkBroadcastBack;
 +
-+        org.purpurmc.purpur.event.PlayerAFKEvent event = new org.purpurmc.purpur.event.PlayerAFKEvent(this.getBukkitEntity(), afk, level.purpurConfig.idleTimeoutKick, msg, !Bukkit.isPrimaryThread());
++        org.purpurmc.purpur.event.PlayerAFKEvent event = new org.purpurmc.purpur.event.PlayerAFKEvent(this.getBukkitEntity(), afk, this.level.purpurConfig.idleTimeoutKick, msg, !Bukkit.isPrimaryThread());
 +        if (!event.callEvent() || event.shouldKick()) {
 +            return;
 +        }
@@ -42,15 +42,20 @@ index 12e0308373684093736bd558606e5a46e159ca20..aa509809e88f85e28698bb22aed77169
 +            server.getPlayerList().broadcastMiniMessage(String.format(msg, this.getGameProfile().getName()), false);
 +        }
 +
-+        if (level.purpurConfig.idleTimeoutUpdateTabList) {
++        if (this.level.purpurConfig.idleTimeoutUpdateTabList) {
++            String scoreboardName = getScoreboardName();
++            String playerListName = getBukkitEntity().getPlayerListName();
++            String[] split = playerListName.split(scoreboardName);
++            String prefix = (split.length > 0 ? split[0] : "").replace(org.purpurmc.purpur.PurpurConfig.afkTabListPrefix, "");
++            String suffix = (split.length > 1 ? split[1] : "").replace(org.purpurmc.purpur.PurpurConfig.afkTabListSuffix, "");
 +            if (afk) {
-+                getBukkitEntity().setPlayerListName(org.purpurmc.purpur.PurpurConfig.afkTabListPrefix + getScoreboardName() + org.purpurmc.purpur.PurpurConfig.afkTabListSuffix, true);
++                getBukkitEntity().setPlayerListName(org.purpurmc.purpur.PurpurConfig.afkTabListPrefix + prefix + scoreboardName + suffix + org.purpurmc.purpur.PurpurConfig.afkTabListSuffix, true);
 +            } else {
-+                getBukkitEntity().setPlayerListName(getScoreboardName());
++                getBukkitEntity().setPlayerListName(prefix + scoreboardName + suffix);
 +            }
 +        }
 +
-+        ((ServerLevel) level).updateSleepingPlayerList();
++        ((ServerLevel) this.level).updateSleepingPlayerList();
 +    }
 +
 +    @Override
@@ -68,7 +73,7 @@ index 12e0308373684093736bd558606e5a46e159ca20..aa509809e88f85e28698bb22aed77169
          return this.stats;
      }
 diff --git a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 37f7e6d4ab2c5a043b122b34a4a0e57465826740..821ceb1b14bd0cadab306e9ac3d9abdc9d345cf6 100644
+index 6ec78e1efff939755b163ab88405e17ba646e706..c37b4000321807ad3c2400019e0be0e6fd3d4301 100644
 --- a/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/src/main/java/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -342,6 +342,20 @@ public class ServerGamePacketListenerImpl implements ServerPlayerConnection, Tic
@@ -155,13 +160,13 @@ index 823efad652d8ff9e96b99375b102fef6f017716e..60f89d7c77a5e792e21e93e35ed1670b
                  }
                  // CraftBukkit start
 diff --git a/src/main/java/net/minecraft/world/entity/EntitySelector.java b/src/main/java/net/minecraft/world/entity/EntitySelector.java
-index e39965c2e50bc8ee424ea07819346e0611398e28..212ea98eeaaf4b20ba0896dab03cd092c494471a 100644
+index 72abebff2018cde2922e97ad6478f93da9aed3ec..412963d7af38a53b6010007278d959a5b11b83c3 100644
 --- a/src/main/java/net/minecraft/world/entity/EntitySelector.java
 +++ b/src/main/java/net/minecraft/world/entity/EntitySelector.java
-@@ -28,6 +28,7 @@ public final class EntitySelector {
+@@ -39,6 +39,7 @@ public final class EntitySelector {
+         return net.minecraft.util.Mth.clamp(serverPlayer.getStats().getValue(net.minecraft.stats.Stats.CUSTOM.get(net.minecraft.stats.Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE) >= playerInsomniaTicks;
      };
-     public static final Predicate<Entity> CAN_BE_COLLIDED_WITH = EntitySelector.NO_SPECTATORS.and(Entity::canBeCollidedWith);
-     public static Predicate<Player> isInsomniac = (player) -> net.minecraft.util.Mth.clamp(((net.minecraft.server.level.ServerPlayer) player).getStats().getValue(net.minecraft.stats.Stats.CUSTOM.get(net.minecraft.stats.Stats.TIME_SINCE_REST)), 1, Integer.MAX_VALUE) >= 72000; // Paper
+     // Paper end
 +    public static Predicate<Player> notAfk = (player) -> !player.isAfk(); // Purpur
  
      private EntitySelector() {}
@@ -182,7 +187,7 @@ index e752c83df50fb9b670ecea2abc95426c2a009b6f..baa4f9026d31de92210300ecb8ee8c1b
              if (baseEntity == null) {
                  if (this.isCombat && (!targetEntity.canBeSeenAsEnemy() || targetEntity.level.getDifficulty() == Difficulty.PEACEFUL)) {
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index f11ba32019abb5d5fef13c8f1beab18f34181a75..74ef0579739cdc6961718dd2d2b34752f172ed73 100644
+index 86c0d7e9775042901d01528f9b55298344ea0ff5..d71250144abcb613598e1b795d096b9c740e3169 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
 @@ -202,6 +202,13 @@ public abstract class Player extends LivingEntity {
@@ -200,10 +205,10 @@ index f11ba32019abb5d5fef13c8f1beab18f34181a75..74ef0579739cdc6961718dd2d2b34752
      public boolean processClick(InteractionHand hand) {
          Entity vehicle = getRootVehicle();
 diff --git a/src/main/java/net/minecraft/world/level/EntityGetter.java b/src/main/java/net/minecraft/world/level/EntityGetter.java
-index 3f458ddd4dc04ed28510a212be76bb19e7f6a61e..a36469186f72eccf8c4428d920d0583bf57b087e 100644
+index 6e55f383f48e9a304b0acd541728394615dc6478..be4e1462ca8f8ef7a19e3af44d82826b9e9b8ab9 100644
 --- a/src/main/java/net/minecraft/world/level/EntityGetter.java
 +++ b/src/main/java/net/minecraft/world/level/EntityGetter.java
-@@ -156,7 +156,7 @@ public interface EntityGetter {
+@@ -154,7 +154,7 @@ public interface EntityGetter {
  
      default boolean hasNearbyAlivePlayer(double x, double y, double z, double range) {
          for(Player player : this.players()) {
@@ -213,7 +218,7 @@ index 3f458ddd4dc04ed28510a212be76bb19e7f6a61e..a36469186f72eccf8c4428d920d0583b
                  if (range < 0.0D || d < range * range) {
                      return true;
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 622ec4316df5bae2466f28173c121634f73767d1..9a8c4da2151cf7bfeef545d754274bb92152e185 100644
+index 26a05a8835934093054e76057572f3f69410134d..622d0234f5ad1b21aa02e585e3b838368bcd1799 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -522,10 +522,15 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
@@ -233,7 +238,7 @@ index 622ec4316df5bae2466f28173c121634f73767d1..9a8c4da2151cf7bfeef545d754274bb9
          for (ServerPlayer player : (List<ServerPlayer>) server.getHandle().players) {
              if (player.getBukkitEntity().canSee(this)) {
                  player.connection.send(new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.UPDATE_DISPLAY_NAME, this.getHandle()));
-@@ -2950,5 +2955,20 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2989,5 +2994,20 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
      public boolean usesPurpurClient() {
          return getHandle().purpurClient;
      }
@@ -305,7 +310,7 @@ index b411ba7283b8d6abf7cf53c3c82b612c801ebbee..657dfaa9cf2990fcade8739d3e1c3f9e
      public boolean untamedTamablesAreRidable = true;
      public boolean useNightVisionWhenRiding = false;
 diff --git a/src/main/java/org/spigotmc/ActivationRange.java b/src/main/java/org/spigotmc/ActivationRange.java
-index 70b5b307193dc288a6257d90ca96762cb4a8345a..2fec279d8880e310cbddea2eb12e2fc4baf99d8c 100644
+index b87756d9a7b04ea2613208984b2583eca3f32af6..7529bca82efe4c33dbf781bcf6f8b583fa54fa95 100644
 --- a/src/main/java/org/spigotmc/ActivationRange.java
 +++ b/src/main/java/org/spigotmc/ActivationRange.java
 @@ -203,6 +203,7 @@ public class ActivationRange

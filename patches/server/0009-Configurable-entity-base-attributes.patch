@@ -5,7 +5,7 @@ Subject: [PATCH] Configurable entity base attributes
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 7816aae4b7e1745f138cdcc12575eba32de2f562..a21c743d3c5d200346e9a7d93554264dbda6783c 100644
+index 810e0b92e2090c18806297b8c29d4e539ddde68e..b32ce5c62c1a700ee612c4c2177c068e8a2f9f53 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -155,7 +155,7 @@ import org.bukkit.plugin.PluginManager;
@@ -34,10 +34,10 @@ index 882ab40c8cdea8c214cb8344b3ccecddb2967c1c..cb79d2c958fbd34f8c8818e7e1c0db88
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/LivingEntity.java b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-index f7d194069b0ef3b4b0a6f360c2b00a2f22d5bcc3..b93edb473c47bd49d0c6f1e39ad36063771672d5 100644
+index 6e626aab5c90100de969125c28c12d8d02e68ea0..86dfb5537f1da7f1e2b8e9bfeb43111b0ac16228 100644
 --- a/src/main/java/net/minecraft/world/entity/LivingEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/LivingEntity.java
-@@ -288,6 +288,7 @@ public abstract class LivingEntity extends Entity {
+@@ -289,6 +289,7 @@ public abstract class LivingEntity extends Entity {
          this.useItem = ItemStack.EMPTY;
          this.lastClimbablePos = Optional.empty();
          this.attributes = new AttributeMap(DefaultAttributes.getSupplier(type), this); // Purpur
@@ -45,7 +45,7 @@ index f7d194069b0ef3b4b0a6f360c2b00a2f22d5bcc3..b93edb473c47bd49d0c6f1e39ad36063
          this.craftAttributes = new CraftAttributeMap(this.attributes); // CraftBukkit
          // CraftBukkit - setHealth(getMaxHealth()) inlined and simplified to skip the instanceof check for EntityPlayer, as getBukkitEntity() is not initialized in constructor
          this.entityData.set(LivingEntity.DATA_HEALTH_ID, (float) this.getAttribute(Attributes.MAX_HEALTH).getValue());
-@@ -303,6 +304,8 @@ public abstract class LivingEntity extends Entity {
+@@ -304,6 +305,8 @@ public abstract class LivingEntity extends Entity {
          this.brain = this.makeBrain(new Dynamic(dynamicopsnbt, (Tag) dynamicopsnbt.createMap((Map) ImmutableMap.of(dynamicopsnbt.createString("memories"), (Tag) dynamicopsnbt.emptyMap()))));
      }
  
@@ -174,7 +174,7 @@ index 7343f6fa6c29d4029cc35e173e5d701efd7f57c6..1ca3ffe212da2c3914c290172e729ba8
  
      @Nullable
 diff --git a/src/main/java/net/minecraft/world/entity/animal/Fox.java b/src/main/java/net/minecraft/world/entity/animal/Fox.java
-index 6a1c2a43aa00a2e651ca19d2acfa54ae3f020c5f..0d1e8ad0edcbe53d203b9fa6748f76f783afae5c 100644
+index 6b3413593fd68d5e4f97bd7fe9454496ace94287..1f714f980bad7dcdeb361366a2d65c5a9f831a2c 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/Fox.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/Fox.java
 @@ -176,6 +176,11 @@ public class Fox extends Animal {
@@ -238,7 +238,7 @@ index 041c2d330a245826fc2fa4c1327aeadd24a44254..3697238a818aac364d62f779fe6b6224
  
      public boolean isTrusting() {
 diff --git a/src/main/java/net/minecraft/world/entity/animal/Panda.java b/src/main/java/net/minecraft/world/entity/animal/Panda.java
-index 129358e127227efb6adbcf4c436f59f2004c9814..47b03fd6a45b03f438fc9e4025dd2d7e70c273b6 100644
+index 8f1b1fbfa76b8003126da7b5a8b5ce1a9cf647df..032afe5b43b44d9844bec6caabb50b753c6c4c0a 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/Panda.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/Panda.java
 @@ -131,6 +131,12 @@ public class Panda extends Animal {
@@ -254,7 +254,7 @@ index 129358e127227efb6adbcf4c436f59f2004c9814..47b03fd6a45b03f438fc9e4025dd2d7e
      // Purpur end
  
      @Override
-@@ -628,7 +634,10 @@ public class Panda extends Animal {
+@@ -629,7 +635,10 @@ public class Panda extends Animal {
  
      public void setAttributes() {
          if (this.isWeak()) {
@@ -427,7 +427,7 @@ index cac2845978b9beebb4e1ed6fed3eb33a698bc545..e439f0e24851697e663f783edf643d5b
  
      public static String getPredefinedName(int variant) {
 diff --git a/src/main/java/net/minecraft/world/entity/animal/Turtle.java b/src/main/java/net/minecraft/world/entity/animal/Turtle.java
-index b185a58c0adb9a0dde014dd7fdeb3bd465feb706..94d0a8d94a210f62e4102f091c886bb7c48f8834 100644
+index ec095421e4928489a4bebfbb212f1795b57341fc..2aede66752b78036a6bd9eb7719f97766a030301 100644
 --- a/src/main/java/net/minecraft/world/entity/animal/Turtle.java
 +++ b/src/main/java/net/minecraft/world/entity/animal/Turtle.java
 @@ -97,6 +97,11 @@ public class Turtle extends Animal {
@@ -719,7 +719,7 @@ index 0f8ce0c6ddbb37a61c6b15bb769b627bcd8105fa..6ed9e4e98c46b51cf398641ffb66abf3
  
      public static AttributeSupplier.Builder createAttributes() {
 diff --git a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-index f892b25c45c7b84fa37f4ddfe2c1068cfa1be483..1e3afa3d98e755b7a06dc6b90f90e2d41843a482 100644
+index e84acc78df13c8277d53f43915d4f58922bce41a..10294ba0f6fac4d0afebe22496d4020b975f1469 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 @@ -160,6 +160,11 @@ public class EnderDragon extends Mob implements Enemy {
@@ -735,7 +735,7 @@ index f892b25c45c7b84fa37f4ddfe2c1068cfa1be483..1e3afa3d98e755b7a06dc6b90f90e2d4
  
      public static AttributeSupplier.Builder createAttributes() {
 diff --git a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-index 11f6465cbf26f4a632f597f2158c6c91d5056c41..cdaefabf24c59338a0406072ce01029c194700fd 100644
+index b0fb4db03a2392c324caf5b8b1b074534397b538..c8f917354676eb26059efb521e09780db32c68b7 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 @@ -224,6 +224,11 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
@@ -1099,7 +1099,7 @@ index 7db7e4ae2ad164dd622ab9b803a5e395dff08ea5..9cc44ccd584253cb16a19e7a4747ef39
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/monster/Silverfish.java b/src/main/java/net/minecraft/world/entity/monster/Silverfish.java
-index 5f1f9ecb06555f15a464efa27f06a5dbdd255c1e..4f0f7b2685696c48f2fe297ceea7a03322b8d45e 100644
+index 07b134957b0d53841f2d4462f91fcf20fb9006fd..44e33d3007f1743f3f18b37ff61af9eb5542f529 100644
 --- a/src/main/java/net/minecraft/world/entity/monster/Silverfish.java
 +++ b/src/main/java/net/minecraft/world/entity/monster/Silverfish.java
 @@ -57,6 +57,11 @@ public class Silverfish extends Monster {
@@ -1313,7 +1313,7 @@ index 9970c2c09b294e601b7cda4f1e8cbf2aed13b0dc..6236a557d2a73dff70141140f79faf85
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/monster/Zombie.java b/src/main/java/net/minecraft/world/entity/monster/Zombie.java
-index be664e96a63bf6042375654e8297e4d6a54c7c8b..80827975411967c3862b69c2a74dd219707c16b7 100644
+index 2040da30822f6f24f6de96bd47f2f8cb4cd2a266..7582f5bf8915af14afe4459fe258e4adcfd35346 100644
 --- a/src/main/java/net/minecraft/world/entity/monster/Zombie.java
 +++ b/src/main/java/net/minecraft/world/entity/monster/Zombie.java
 @@ -120,6 +120,11 @@ public class Zombie extends Monster {
@@ -1328,7 +1328,7 @@ index be664e96a63bf6042375654e8297e4d6a54c7c8b..80827975411967c3862b69c2a74dd219
      // Purpur end
  
      @Override
-@@ -607,7 +612,7 @@ public class Zombie extends Monster {
+@@ -606,7 +611,7 @@ public class Zombie extends Monster {
      }
  
      protected void randomizeReinforcementsChance() {
@@ -1338,7 +1338,7 @@ index be664e96a63bf6042375654e8297e4d6a54c7c8b..80827975411967c3862b69c2a74dd219
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/monster/ZombieVillager.java b/src/main/java/net/minecraft/world/entity/monster/ZombieVillager.java
-index 9e5542220eeada8b4f539a5bbbeead670eef4057..51ea3307a9264e665cbf8106e4562afe0c2065c5 100644
+index 179fe7f6f4f2305f8e07106f0d7151cd8d69a959..a45f743526ff0894cc730f0e9ff393fb27703d9a 100644
 --- a/src/main/java/net/minecraft/world/entity/monster/ZombieVillager.java
 +++ b/src/main/java/net/minecraft/world/entity/monster/ZombieVillager.java
 @@ -93,6 +93,16 @@ public class ZombieVillager extends Zombie implements VillagerDataHolder {
@@ -1432,7 +1432,7 @@ index ff149234a8f3e1c94961e41d5bc8117460b301d9..75db61c5aab66234b26f7899229ddca8
  
      public static AttributeSupplier.Builder createAttributes() {
 diff --git a/src/main/java/net/minecraft/world/entity/npc/Villager.java b/src/main/java/net/minecraft/world/entity/npc/Villager.java
-index a6519bf96f39fa69ecb65ef25dba80261bb03323..ef08ec3eb88ee1ab624e2bd38aaff5e8f97720f2 100644
+index b5033df0db18ef54077cead642e81715ffb8acc9..8127b5175ec2ba06fa4127be85978625bb74e53e 100644
 --- a/src/main/java/net/minecraft/world/entity/npc/Villager.java
 +++ b/src/main/java/net/minecraft/world/entity/npc/Villager.java
 @@ -175,6 +175,11 @@ public class Villager extends AbstractVillager implements ReputationEventHandler
@@ -1448,7 +1448,7 @@ index a6519bf96f39fa69ecb65ef25dba80261bb03323..ef08ec3eb88ee1ab624e2bd38aaff5e8
  
      @Override
 diff --git a/src/main/java/net/minecraft/world/entity/npc/WanderingTrader.java b/src/main/java/net/minecraft/world/entity/npc/WanderingTrader.java
-index bb710e97a515d25a5835805cadfca48b2f1f916a..87d2f596ed2c313dd49f3b0c7a1a33d9288844ff 100644
+index 204567f3ce802a0f757d7270b046f905641b0cfb..f730005269717d805fbcee832a1471c490605684 100644
 --- a/src/main/java/net/minecraft/world/entity/npc/WanderingTrader.java
 +++ b/src/main/java/net/minecraft/world/entity/npc/WanderingTrader.java
 @@ -81,6 +81,11 @@ public class WanderingTrader extends net.minecraft.world.entity.npc.AbstractVill
